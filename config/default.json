@@ -1,0 +1,4 @@
+{
+	"mongoURI": "mongodb+srv://kolyathedev:25jb2YHiPGoulDqt@staythepath.t3khkam.mongodb.net/?retryWrites=true&w=majority",
+	"jwtSecret": "blackrosedragonlvlsevenfireattribute"
+}

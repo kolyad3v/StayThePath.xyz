@@ -1,0 +1,40 @@
+{
+	"name": "roastmyjutsu",
+	"version": "1.0.0",
+	"description": "Backend for RMJ",
+	"engines": {
+		"node": "16.x"
+	},
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js",
+		"server": "nodemon server.js",
+		"client": "npm run start --prefix client",
+		"clientinstall": "npm install --prefix client",
+		"dev": "concurrently \"npm run server\" \"npm run client\"",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+		"dave": "nodemon app.js"
+	},
+	"author": "nikodev",
+	"license": "MIT",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"body-parser": "^1.20.0",
+		"config": "^3.1.0",
+		"dotenv": "^16.0.1",
+		"ejs": "^3.1.8",
+		"express": "^4.16.4",
+		"express-validator": "^6.14.0",
+		"fluent-ffmpeg": "^2.1.2",
+		"gridfs-stream": "^1.1.1",
+		"jsonwebtoken": "^8.5.1",
+		"method-override": "^3.0.0",
+		"mongoose": "^6.2.4",
+		"multer": "^1.4.4",
+		"multer-gridfs-storage": "^5.0.2"
+	},
+	"devDependencies": {
+		"concurrently": "^7.0.0",
+		"nodemon": "^2.0.15"
+	}
+}
