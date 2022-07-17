@@ -1,16 +1,15 @@
-export const GET_ITEMS = 'GET_ITEMS'
-export const CLEAR_ITEMS = 'CLEAR_ITEMS'
+export const GET_PATHS = 'GET_PATHS'
+export const CLEAR_PATHS = 'CLEAR_PATHS'
 
-export const ADD_ITEM = 'ADD_ITEM'
-export const DELETE_ITEM = 'DELETE_ITEM'
-export const SET_CURRENT = 'SET_CURRENT'
-export const CLEAR_CURRENT = 'CLEAR_CURRENT'
-export const ITEM_ERROR = 'ITEM_ERROR'
-// update item meaning equip item
-export const EQUIP_ITEM = 'EQUIP_ITEM'
-export const FILTER_ITEMS = 'FILTER_ITEMS'
+export const ADD_PATH = 'ADD_PATH'
+export const DELETE_PATH = 'DELETE_PATH'
+
+export const PATH_ERROR = 'PATH_ERROR'
+// update PATH meaning equip PATH
+
+export const FILTER_PATHS = 'FILTER_PATHS'
 export const CLEAR_FILTER = 'CLEAR_FILTER'
-export const HIDE_ITEMS = 'HIDE_ITEMS'
+export const HIDE_PATHS = 'HIDE_PATHS'
 // alerts may also be useful to alert players to events ingame such as out of bounds etc
 export const SET_ALERT = 'SET_ALERT'
 export const REMOVE_ALERT = 'REMOVE_ALERT'

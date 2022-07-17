@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 import Home from './components/loginScreen-components/pages/Home.js'
 import About from './components/loginScreen-components/pages/About.js'
 
-import ItemState from './context/Item/ItemState'
+import PathState from './context/Paths/PathState'
 import AuthState from './context/auth/AuthState'
 import AlertState from './context/alert/AlertState'
 
@@ -17,7 +17,7 @@ import PrivateRoute from './components/routing/PrivateRoute'
 const App = () => {
 	return (
 		<AuthState>
-			<ItemState>
+			<PathState>
 				<AlertState>
 					<BrowserRouter>
 						<Fragment>
@@ -34,7 +34,7 @@ const App = () => {
 						</Fragment>
 					</BrowserRouter>
 				</AlertState>
-			</ItemState>
+			</PathState>
 		</AuthState>
 	)
 }
