@@ -2,8 +2,11 @@ import {
 	ADD_PATH,
 	DELETE_PATH,
 	PATH_ERROR,
+	UPDATE_PATH,
 	GET_PATHS,
 	HIDE_PATHS,
+	SET_CURRENT,
+	CLEAR_CURRENT,
 } from '../types.js'
 
 export default (state, action) => {
@@ -31,7 +34,23 @@ export default (state, action) => {
 				...state,
 				visible: !state.visible,
 			}
-
+		case UPDATE_PATH:
+			return {
+				...state,
+				paths: state.paths.map((path) =>
+					path._id === action.payload._id ? action.payload : path
+				),
+			}
+		case SET_CURRENT:
+			return {
+				...state,
+				current: action.payload,
+			}
+		case CLEAR_CURRENT:
+			return {
+				...state,
+				current: null,
+			}
 		case PATH_ERROR:
 			return {
 				...state,

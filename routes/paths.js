@@ -44,31 +44,31 @@ router.post('/', auth, async (req, res) => {
 // @desc        edit and item so that it's boolean use is set to true false. This can be used later to tell 3 whether or not to equip/adorn the item or not.
 // @access      private
 router.put('/:id', auth, async (req, res) => {
-	// extract the equipped value from the client req object
-	const { equipped } = req.body
+	// extract the values needing change from the client req object
+	const { value } = req.body
 
 	// build item object
-	const equipField = {}
-	if (equipped) {
-		equipField.equipped = equipped
-	} else if (!equipped) {
-		equipField.equipped = false
-	}
+	const pathFields = {}
+	if (value) pathFields.value = value
 
 	try {
-		let item = await Item.findById(req.params.id)
-		if (!item) return res.status(404).json({ msg: 'Item not found' })
+		let path = await Path.findById(req.params.id)
+		if (!path) return res.status(404).json({ msg: 'Path not found' })
 
 		// make sure student can only edit their own items
-		if (item.student.toString() !== req.student.id) {
+		if (path.ronin.toString() !== req.ronin.id) {
 			return res.status(401).json({ msg: 'not authorised' })
 		}
 
-		item = await Item.findByIdAndUpdate(req.params.id, { $set: equipField })
+		path = await Path.findByIdAndUpdate(
+			req.params.id,
+			{ $set: pathFields },
+			{ new: true }
+		)
 
-		res.json(item)
+		res.json(path)
 	} catch (err) {
-		console.error(error.message)
+		console.error(err.message)
 		res.status(500).send('Server Error ')
 	}
 })
@@ -78,15 +78,15 @@ router.put('/:id', auth, async (req, res) => {
 // @access      private
 router.delete('/:id', auth, async (req, res) => {
 	try {
-		let item = await Item.findById(req.params.id)
-		if (!item) return res.status(404).json({ msg: 'Item not found' })
+		let pathToDelete = await Path.findById(req.params.id)
+		if (!pathToDelete) return res.status(404).json({ msg: 'Path not found' })
 
-		// make sure student can only edit their own items
-		if (item.student.toString() !== req.student.id) {
+		// make sure Ronin can only edit their own items
+		if (pathToDelete.ronin.toString() !== req.ronin.id) {
 			return res.status(401).json({ msg: 'not authorised' })
 		}
 
-		await Item.findByIdAndRemove(req.params.id)
+		await Path.findByIdAndRemove(req.params.id)
 
 		res.json({ msg: 'item deleted' })
 	} catch (err) {

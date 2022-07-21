@@ -5,7 +5,10 @@ export const ADD_PATH = 'ADD_PATH'
 export const DELETE_PATH = 'DELETE_PATH'
 
 export const PATH_ERROR = 'PATH_ERROR'
-// update PATH meaning equip PATH
+export const UPDATE_PATH = 'UPDATE_PATH'
+
+export const SET_CURRENT = 'SET_CURRENT'
+export const CLEAR_CURRENT = 'CLEAR_CURRENT'
 
 export const FILTER_PATHS = 'FILTER_PATHS'
 export const CLEAR_FILTER = 'CLEAR_FILTER'

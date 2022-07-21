@@ -3,7 +3,15 @@ import axios from 'axios'
 import PathContext from './pathContext.js'
 import pathReducer from './pathReducer.js'
 
-import { ADD_PATH, DELETE_PATH, GET_PATHS, PATH_ERROR } from '../types.js'
+import {
+	ADD_PATH,
+	CLEAR_CURRENT,
+	DELETE_PATH,
+	GET_PATHS,
+	PATH_ERROR,
+	SET_CURRENT,
+	UPDATE_PATH,
+} from '../types.js'
 
 // refactoring ----->
 export const usePath = () => {
@@ -33,10 +41,26 @@ export const addPath = async (dispatch, path) => {
 	}
 }
 
+// UPDATE PATH
+export const updatePath = async (dispatch, path) => {
+	try {
+		const res = await axios.put(`/api/paths/${path._id}`, path)
+		dispatch({
+			type: UPDATE_PATH,
+			payload: res.data,
+		})
+	} catch (error) {
+		dispatch({
+			type: PATH_ERROR,
+			payload: error.response.msg,
+		})
+	}
+}
+
 // DELETE PATH
 export const deletePath = async (dispatch, _id) => {
 	try {
-		const res = await axios.delete(`/api/path/${_id}`)
+		const res = await axios.delete(`/api/paths/${_id}`)
 		console.log(res.data)
 		dispatch({ type: DELETE_PATH, payload: _id })
 	} catch (err) {
@@ -44,9 +68,20 @@ export const deletePath = async (dispatch, _id) => {
 	}
 }
 
+// SET CURRENT
+export const setCurrent = (dispatch, path) => {
+	dispatch({ type: SET_CURRENT, payload: path })
+}
+
+// CLEAR CURRENT
+export const clearCurrent = (dispatch) => {
+	dispatch({ type: CLEAR_CURRENT })
+}
+
 const PathState = (props) => {
 	const initialState = {
 		paths: [],
+		current: null,
 		error: null,
 		loading: true,
 		visible: false,
