@@ -57,6 +57,22 @@ export const updatePath = async (dispatch, path) => {
 	}
 }
 
+// MAKE PATH ENTRY
+export const pathEntry = async (dispatch, path) => {
+	try {
+		const res = await axios.post(`/api/paths/entry/${path._id}`, path)
+		dispatch({
+			type: UPDATE_PATH,
+			payload: res.data,
+		})
+	} catch (error) {
+		dispatch({
+			type: PATH_ERROR,
+			payload: error.response.msg,
+		})
+	}
+}
+
 // DELETE PATH
 export const deletePath = async (dispatch, _id) => {
 	try {

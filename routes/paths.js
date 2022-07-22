@@ -73,7 +73,31 @@ router.put('/:id', auth, async (req, res) => {
 	}
 })
 
-// @route       DELETE api/items
+// @route		Post an Entry api/paths
+// @desc		add a log of work output and notes if desired
+// @access		private
+
+router.post('/entry/:id', auth, async (req, res) => {
+	try {
+		const path = await Path.findById(req.params.id)
+
+		const newEntry = {
+			hours: req.body.hours,
+			notes: req.body.notes,
+		}
+
+		path.entries.unshift(newEntry)
+
+		await path.save()
+
+		res.json(path)
+	} catch (err) {
+		console.error(err)
+		res.status(500).send('entry addition failed')
+	}
+})
+
+// @route       DELETE api/paths
 // @desc        throw away an item
 // @access      private
 router.delete('/:id', auth, async (req, res) => {

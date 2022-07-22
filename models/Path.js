@@ -12,9 +12,25 @@ const PathSchema = mongoose.Schema({
 	value: {
 		type: String,
 	},
+	entries: [
+		{
+			ronin: {
+				type: mongoose.Schema.Types.ObjectId,
+			},
+			hours: {
+				type: String,
+			},
+			notes: {
+				type: String,
+			},
+			date: {
+				type: Date,
+				default: Date.now,
+			},
+		},
+	],
 	date: {
 		type: Date,
-
 		default: Date.now,
 	},
 })
