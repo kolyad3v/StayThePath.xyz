@@ -1,6 +1,6 @@
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
-import Greyfield from './Greyfield'
+import Greyfield from './TheConstruct.js'
 
 export default class World {
 	constructor() {

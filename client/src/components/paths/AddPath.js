@@ -37,26 +37,37 @@ const AddPath = () => {
 
 	let form = (
 		<form onSubmit={onSubmit}>
-			<input
-				type='text'
-				name='name'
-				placeholder='name'
-				value={name}
-				onChange={onChange}
-			/>
-
-			<input
-				type='text'
-				name='value'
-				value={value}
-				placeholder='Set initial value if required'
-				onChange={onChange}
-			/>
-			<input
-				type='submit'
-				value='Add Path'
-				className='waves-effect waves-light btn black white-text'
-			/>
+			<div className='row'>
+				<div className='col 12'>
+					<div className='row'>
+						<input
+							type='text'
+							name='name'
+							placeholder='name'
+							value={name}
+							onChange={onChange}
+							className='black-text'
+						/>
+					</div>
+					<div className='row'>
+						<input
+							type='text'
+							name='value'
+							value={value}
+							placeholder='Set initial value if required'
+							onChange={onChange}
+							className='black-text'
+						/>
+					</div>
+				</div>
+				<div className='row'>
+					<input
+						type='submit'
+						value='Add Path'
+						className='waves-effect waves-light btn black white-text'
+					/>
+				</div>
+			</div>
 		</form>
 	)
 

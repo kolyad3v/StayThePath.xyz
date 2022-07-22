@@ -4,9 +4,9 @@ import DisplayPaths from '../../paths/DisplayPaths'
 import AddPath from '../../paths/AddPath'
 const Home = () => {
 	// eslint-disable-next-line
-	// const experience = new Experience(document.querySelector('canvas.webgl'))
+	const experience = new Experience(document.querySelector('canvas.webgl'))
 
-	const stats = (
+	const homeComponent = (
 		<Fragment>
 			<AddPath />
 			<DisplayPaths />
@@ -15,7 +15,7 @@ const Home = () => {
 
 	return (
 		<>
-			<div className='grid-2 text-center'>{stats}</div>
+			<div className='grid-2 text-center'>{homeComponent}</div>
 		</>
 	)
 }

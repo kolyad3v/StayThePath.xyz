@@ -67,11 +67,16 @@ const Path = ({ path }) => {
 		setAlert('cleared', 'light')
 	}
 
-	let totalHours = entries
-		.map((el) => parseInt(el.hours))
-		.reduce((total, num) => {
-			return total + num
-		})
+	let totalHours = 0
+	if (entries.length > 0) {
+		totalHours = entries
+			.map((el) => parseInt(el.hours))
+			.reduce((total, num) => {
+				return total + num
+			})
+	}
+
+	let combinedHours = totalHours + parseInt(value)
 
 	let entriesArr = entries.map((entry) => (
 		<tr style={{ fontSize: '1rem' }} key={entry._id}>
@@ -85,10 +90,10 @@ const Path = ({ path }) => {
 		<div>
 			<div className='row'>
 				<div className='col s12 '>
-					<div className='card large grey darken-4 hoverable'>
+					<div className='card small grey darken-4 hoverable'>
 						<div className='card-content white-text'>
 							<span className='card-title activator'>
-								{name} : {totalHours} hours
+								{name} : {combinedHours} hours
 								<i className='material-icons right'>more_vert</i>
 							</span>
 							<div className='row'>
@@ -128,7 +133,7 @@ const Path = ({ path }) => {
 								</div>
 							</div>
 
-							{current ? (
+							{/* {current ? (
 								<div className='input-field col s12 '>
 									<input
 										name='value'
@@ -137,7 +142,7 @@ const Path = ({ path }) => {
 										className='white-text'
 									/>{' '}
 								</div>
-							) : null}
+							) : null} */}
 
 							{current ? (
 								<div className='input-field col s12'>
