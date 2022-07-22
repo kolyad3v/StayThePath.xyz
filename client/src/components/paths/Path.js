@@ -67,47 +67,124 @@ const Path = ({ path }) => {
 		setAlert('cleared', 'light')
 	}
 
+	let totalHours = entries
+		.map((el) => parseInt(el.hours))
+		.reduce((total, num) => {
+			return total + num
+		})
+
 	let entriesArr = entries.map((entry) => (
-		<ul key={entry._id}>
-			<li>{entry.hours}</li>
-			<li>{entry.notes}</li>
-			<li>{entry.date}</li>
-		</ul>
+		<tr style={{ fontSize: '1rem' }} key={entry._id}>
+			<td>{entry.hours}</td>
+			<td>{entry.notes}</td>
+			<td>{new Date(entry.date).toDateString()}</td>
+		</tr>
 	))
 
 	return (
-		<div className='card bg-light'>
-			<h3 className='text-primary text-center'>{name}</h3>
-			<span className={'badge badge-primary'}> Total: {value}</span>
+		<div>
+			<div className='row'>
+				<div className='col s12 '>
+					<div className='card large grey darken-4 hoverable'>
+						<div className='card-content white-text'>
+							<span className='card-title activator'>
+								{name} : {totalHours} hours
+								<i className='material-icons right'>more_vert</i>
+							</span>
+							<div className='row'>
+								<div className='col s1'></div>
 
-			<button className='btn btn-danger btn-sm' onClick={onDelete}>
-				Discard
-			</button>
-			<button className='btn btn-primary btn-sm' onClick={onUpdate}>
-				{current ? 'Save' : 'Update'}
-			</button>
-			{current && (
-				<button className='btn btn-secondary btn-sm' onClick={onClear}>
-					clear
-				</button>
-			)}
+								<div className='col s3'>
+									<button
+										className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
+										onClick={onUpdate}
+									>
+										{current ? 'Save' : 'Update'}
+									</button>
+								</div>
+								<div className='col s1'></div>
 
-			{current ? (
-				<input name='value' value={updateValue} onChange={onChange} />
-			) : null}
-			{current ? (
-				<input
-					name='hours'
-					onChange={onChange}
-					placeholder='hours, eg 1hr 30 = 1.5'
-					required
-				/>
-			) : null}
-			{current ? (
-				<input name='notes' onChange={onChange} placeholder='notes' />
-			) : null}
+								<div className='col s3'>
+									{current && (
+										<button
+											className='waves-effect waves-teal grey btn-flat black-text'
+											onClick={onClear}
+										>
+											clear
+										</button>
+									)}
+								</div>
+								<div className='col s1'></div>
 
-			{entries && entriesArr}
+								<div className='col s3'>
+									{current ? (
+										<button
+											className='btn-floating btn-medium waves-effect waves-light red'
+											onClick={onDelete}
+										>
+											<i className='tiny material-icons'>clear</i>
+										</button>
+									) : null}
+								</div>
+							</div>
+
+							{current ? (
+								<div className='input-field col s12 '>
+									<input
+										name='value'
+										value={updateValue}
+										onChange={onChange}
+										className='white-text'
+									/>{' '}
+								</div>
+							) : null}
+
+							{current ? (
+								<div className='input-field col s12'>
+									<input
+										name='hours'
+										onChange={onChange}
+										placeholder='hours, eg 1hr 30 = 1.5'
+										required
+										className='white-text'
+									/>
+								</div>
+							) : null}
+							{current ? (
+								<div className='input-field col s12'>
+									<textarea
+										name='notes'
+										onChange={onChange}
+										placeholder='notes'
+										className='white-text materialize-textarea'
+									/>
+								</div>
+							) : null}
+						</div>
+						<div className='card-reveal '>
+							<span className='card-title grey-text text-darken-4'>
+								Entries<i className='material-icons right'>close</i>
+							</span>
+							<table className='highlight responsive-table'>
+								<thead>
+									<tr>
+										<th>
+											<h5>Hours</h5>
+										</th>
+										<th>
+											<h5>Notes</h5>
+										</th>
+										<th>
+											<h5>Date</h5>
+										</th>
+									</tr>
+								</thead>
+								<tbody>{entries && entriesArr}</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }

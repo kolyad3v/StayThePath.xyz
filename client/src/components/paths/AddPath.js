@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { addPath, usePath } from '../../context/Paths/PathState'
 
+import { addPath, usePath } from '../../context/Paths/PathState'
 const initialPath = {
 	name: '',
 	value: '',
@@ -12,6 +12,8 @@ const AddPath = () => {
 	const { name, value } = pathState
 
 	const [path, setPath] = useState(initialPath)
+
+	const [hideState, setHide] = useState(false)
 
 	const onChange = (e) =>
 		setPath({
@@ -28,7 +30,12 @@ const AddPath = () => {
 		})
 	}
 
-	return (
+	const onHide = () => {
+		setHide(!hideState)
+		console.log(hideState)
+	}
+
+	let form = (
 		<form onSubmit={onSubmit}>
 			<input
 				type='text'
@@ -42,12 +49,27 @@ const AddPath = () => {
 				type='text'
 				name='value'
 				value={value}
-				placeholder='value'
+				placeholder='Set initial value if required'
 				onChange={onChange}
 			/>
-
-			<input type='submit' value='Add Path' className='btn btn-primary btn-sm' />
+			<input
+				type='submit'
+				value='Add Path'
+				className='waves-effect waves-light btn black white-text'
+			/>
 		</form>
+	)
+
+	return (
+		<div>
+			<button
+				className='btn-floating btn-large waves-effect waves-light black'
+				onClick={onHide}
+			>
+				<i className='material-icons'>add</i>
+			</button>
+			{hideState && form}
+		</div>
 	)
 }
 
