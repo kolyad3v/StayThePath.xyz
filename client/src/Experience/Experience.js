@@ -10,7 +10,7 @@ import Resources from './Utils/Resources.js'
 
 import sources from './sources.js'
 
-import FrameCount from './Utils/FrameCount.js'
+// import FrameCount from './Utils/FrameCount.js'
 
 let instance = null
 

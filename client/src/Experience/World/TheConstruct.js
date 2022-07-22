@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import Experience from '../Experience'
-import Box from './Box'
 
 export default class Greyfield {
 	constructor() {
