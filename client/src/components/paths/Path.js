@@ -32,7 +32,6 @@ const Path = ({ path }) => {
 
 	const [pathUpdateState, setPath] = useState(initialPath)
 
-	const { value: updateValue } = pathUpdateState
 	useEffect(() => {
 		if (current !== null) {
 			setPath(current)
