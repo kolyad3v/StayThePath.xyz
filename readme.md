@@ -11,5 +11,3 @@ https://threejs-journey.com/
 https://www.udemy.com/course/modern-react-front-to-back/
 
 ####
-
-25jb2YHiPGoulDqt
