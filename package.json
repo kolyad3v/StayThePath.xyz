@@ -1,7 +1,7 @@
 {
-	"name": "roastmyjutsu",
+	"name": "staythepath",
 	"version": "1.0.0",
-	"description": "Backend for RMJ",
+	"description": "staythepath server api",
 	"engines": {
 		"node": "16.x"
 	},
