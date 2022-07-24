@@ -69,13 +69,13 @@ const Path = ({ path }) => {
 	let totalHours = 0
 	if (entries.length > 0) {
 		totalHours = entries
-			.map((el) => parseInt(el.hours))
+			.map((el) => parseFloat(el.hours))
 			.reduce((total, num) => {
 				return total + num
 			})
 	}
 
-	let combinedHours = totalHours + parseInt(value)
+	let combinedHours = totalHours + parseFloat(value)
 
 	let entriesArr = entries.map((entry) => (
 		<tr style={{ fontSize: '1rem' }} key={entry._id}>
