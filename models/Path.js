@@ -18,7 +18,10 @@ const PathSchema = mongoose.Schema({
 				type: mongoose.Schema.Types.ObjectId,
 			},
 			hours: {
-				type: String,
+				type: Number,
+			},
+			minutes: {
+				type: Number,
 			},
 			notes: {
 				type: String,

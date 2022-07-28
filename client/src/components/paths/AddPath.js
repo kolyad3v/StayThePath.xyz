@@ -32,7 +32,6 @@ const AddPath = () => {
 
 	const onHide = () => {
 		setHide(!hideState)
-		console.log(hideState)
 	}
 
 	let form = (

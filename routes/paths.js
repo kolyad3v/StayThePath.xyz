@@ -83,6 +83,7 @@ router.post('/entry/:id', auth, async (req, res) => {
 
 		const newEntry = {
 			hours: req.body.hours,
+			minutes: req.body.minutes,
 			notes: req.body.notes,
 		}
 

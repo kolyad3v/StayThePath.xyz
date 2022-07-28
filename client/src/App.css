@@ -4,7 +4,7 @@
 :root {
 	--primary-color: #000000;
 	--dark-color: #aad3ee71;
-	--light-color: #f4f4f4;
+	--light-color: #c7c6c6;
 	--danger-color: #dc3545;
 	--success-color: #28a745;
 	--subText-color: #000000;
@@ -265,6 +265,9 @@ img {
 	opacity: 0.9;
 	background: var(--light-color);
 	color: #333;
+	font: bolder;
+	border-radius: 3px;
+	transition: 0.5s;
 }
 
 .btn-primary,

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import {
 	usePath,
 	deletePath,
-	setCurrent,
-	clearCurrent,
-	updatePath,
+	// setCurrent,
+	// clearCurrent,
+	// updatePath,
 	pathEntry,
 } from '../../context/Paths/PathState'
 
@@ -15,7 +15,8 @@ import AlertContext from '../../context/alert/alertContext'
 const initialPath = {
 	name: '',
 	value: '',
-	hours: '',
+	hours: 0,
+	minutes: 0,
 	notes: '',
 	_id: '',
 }
@@ -26,11 +27,13 @@ const Path = ({ path }) => {
 
 	const [pathState, pathDispatch] = usePath()
 
-	const { _id, name, value, entries } = path
+	const { _id, name, entries } = path
 
 	const { current } = pathState
 
 	const [pathUpdateState, setPath] = useState(initialPath)
+
+	const [readyForUpdateState, setReadyForUpdateState] = useState(false)
 
 	useEffect(() => {
 		if (current !== null) {
@@ -41,19 +44,38 @@ const Path = ({ path }) => {
 	}, [current])
 
 	const onDelete = () => {
-		deletePath(pathDispatch, _id)
+		if (
+			window.confirm(
+				'Are you sure? This will delete this path forever! Hit ok to continue...'
+			)
+		) {
+			deletePath(pathDispatch, _id)
+		} else {
+			setAlert('Crisis averted.', 'success')
+		}
 	}
 
 	const onUpdate = () => {
-		if (current === null) {
-			setCurrent(pathDispatch, path)
+		if (!readyForUpdateState) {
+			setReadyForUpdateState(true)
+			setPath({ ...pathUpdateState, _id })
 		} else {
-			console.log(pathUpdateState)
-			updatePath(pathDispatch, pathUpdateState).then(
+			if (pathUpdateState.minutes > 59) {
+				setAlert('Max 59 mins, please re-enter input', 'danger')
+			} else {
 				pathEntry(pathDispatch, pathUpdateState)
-			)
-			setAlert('Updated. Good job.', 'success')
-			clearCurrent(pathDispatch)
+				setAlert('Updated. Good job.', 'success')
+				setReadyForUpdateState(false)
+				setPath({
+					...pathUpdateState,
+					name: '',
+					value: '',
+					hours: 0,
+					minutes: 0,
+					notes: '',
+					_id: '',
+				})
+			}
 		}
 	}
 
@@ -62,24 +84,33 @@ const Path = ({ path }) => {
 	}
 
 	const onClear = () => {
-		clearCurrent(pathDispatch)
-		setAlert('cleared', 'light')
+		setReadyForUpdateState(false)
+		setAlert('Cleared', 'light')
 	}
 
 	let totalHours = 0
 	if (entries.length > 0) {
 		totalHours = entries
-			.map((el) => parseFloat(el.hours))
+			.map((el) => el.hours)
 			.reduce((total, num) => {
 				return total + num
 			})
 	}
 
-	let combinedHours = totalHours + parseFloat(value)
+	let totalMins = 0
+	if (entries.length > 0) {
+		totalMins = entries
+			.map((el) => el.minutes)
+			.reduce((total, num) => {
+				return total + num
+			})
+	}
 
 	let entriesArr = entries.map((entry) => (
 		<tr style={{ fontSize: '1rem' }} key={entry._id}>
-			<td>{entry.hours}</td>
+			<td>
+				{entry.hours} hrs:{entry.minutes} mins
+			</td>
 			<td>{entry.notes}</td>
 			<td>{new Date(entry.date).toDateString()}</td>
 		</tr>
@@ -89,10 +120,10 @@ const Path = ({ path }) => {
 		<div>
 			<div className='row'>
 				<div className='col s12 '>
-					<div className='card small grey darken-4 hoverable'>
+					<div className='card medium grey darken-4 hoverable'>
 						<div className='card-content white-text'>
 							<span className='card-title activator'>
-								{name} : {combinedHours} hours
+								{name} : {totalHours} hours {totalMins} mins
 								<i className='material-icons right'>more_vert</i>
 							</span>
 							<div className='row'>
@@ -103,13 +134,13 @@ const Path = ({ path }) => {
 										className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
 										onClick={onUpdate}
 									>
-										{current ? 'Save' : 'Update'}
+										{readyForUpdateState ? 'Save' : 'Update'}
 									</button>
 								</div>
 								<div className='col s1'></div>
 
 								<div className='col s3'>
-									{current && (
+									{readyForUpdateState && (
 										<button
 											className='waves-effect waves-teal grey btn-flat black-text'
 											onClick={onClear}
@@ -121,7 +152,7 @@ const Path = ({ path }) => {
 								<div className='col s1'></div>
 
 								<div className='col s3'>
-									{current ? (
+									{readyForUpdateState ? (
 										<button
 											className='btn-floating btn-medium waves-effect waves-light red'
 											onClick={onDelete}
@@ -132,7 +163,7 @@ const Path = ({ path }) => {
 								</div>
 							</div>
 
-							{/* {current ? (
+							{/* {readyForUpdateState ? (
 								<div className='input-field col s12 '>
 									<input
 										name='value'
@@ -143,23 +174,34 @@ const Path = ({ path }) => {
 								</div>
 							) : null} */}
 
-							{current ? (
+							{readyForUpdateState ? (
 								<div className='input-field col s12'>
 									<input
 										name='hours'
 										onChange={onChange}
-										placeholder='hours, eg 1hr 30 = 1.5'
+										placeholder='Hours'
 										required
 										className='white-text'
-									/>
+									/>{' '}
 								</div>
 							) : null}
-							{current ? (
+							{readyForUpdateState ? (
+								<div className='input-field col s12'>
+									<input
+										name='minutes'
+										onChange={onChange}
+										placeholder='Mins'
+										required
+										className='white-text'
+									/>{' '}
+								</div>
+							) : null}
+							{readyForUpdateState ? (
 								<div className='input-field col s12'>
 									<textarea
 										name='notes'
 										onChange={onChange}
-										placeholder='notes'
+										placeholder='Notes, eg task completed, exercise, study topic'
 										className='white-text materialize-textarea'
 									/>
 								</div>
@@ -173,7 +215,7 @@ const Path = ({ path }) => {
 								<thead>
 									<tr>
 										<th>
-											<h5>Hours</h5>
+											<h5>Time</h5>
 										</th>
 										<th>
 											<h5>Notes</h5>
