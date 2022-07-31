@@ -20,6 +20,22 @@ body {
 	overflow: visible;
 }
 
+::placeholder {
+	/* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: grey;
+	opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: grey;
+}
+
+::-ms-input-placeholder {
+	/* Microsoft Edge */
+	color: grey;
+}
+
 .webgl {
 	position: fixed;
 	top: 0;

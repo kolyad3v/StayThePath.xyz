@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const PathSchema = mongoose.Schema({
+const NoblePathWakeShema = mongoose.Schema({
 	ronin: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'ronins',
@@ -9,19 +9,15 @@ const PathSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	value: {
-		type: String,
-	},
-
 	entries: [
 		{
 			ronin: {
 				type: mongoose.Schema.Types.ObjectId,
 			},
-			hours: {
+			hour: {
 				type: Number,
 			},
-			minutes: {
+			minute: {
 				type: Number,
 			},
 			notes: {
@@ -39,4 +35,4 @@ const PathSchema = mongoose.Schema({
 	},
 })
 
-module.exports = mongoose.model('path', PathSchema)
+module.exports = mongoose.model('path', NoblePathWakeShema)

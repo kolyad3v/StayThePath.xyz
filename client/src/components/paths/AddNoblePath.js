@@ -48,7 +48,7 @@ const AddPath = () => {
 							className='black-text'
 						/>
 					</div>
-					<div className='row black-text'>
+					<div className='row'>
 						<input
 							type='text'
 							name='value'
