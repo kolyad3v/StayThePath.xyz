@@ -3,7 +3,7 @@ import Experience from '../Experience'
 
 export default class Greyfield {
 	constructor() {
-		console.log('Greyfield model instantiated!')
+		console.log('TheConstruct model instantiated!')
 		this.experience = new Experience()
 		this.scene = this.experience.scene
 		this.resources = this.experience.resources

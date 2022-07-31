@@ -88,23 +88,28 @@ const Path = ({ path }) => {
 		setAlert('Cleared', 'light')
 	}
 
-	let totalHours = 0
+	let totalHours = 0,
+		hoursToAdd = 0,
+		minsLeftOver = 0,
+		totalMins = 0
 	if (entries.length > 0) {
 		totalHours = entries
 			.map((el) => el.hours)
 			.reduce((total, num) => {
 				return total + num
 			})
-	}
 
-	let totalMins = 0
-	if (entries.length > 0) {
 		totalMins = entries
 			.map((el) => el.minutes)
 			.reduce((total, num) => {
 				return total + num
 			})
 	}
+	if (totalMins > 59) {
+		hoursToAdd = Math.floor(totalMins / 60)
+		minsLeftOver = totalMins % 60
+	}
+	totalHours += hoursToAdd
 
 	let entriesArr = entries.map((entry) => (
 		<tr style={{ fontSize: '1rem' }} key={entry._id}>
@@ -123,7 +128,8 @@ const Path = ({ path }) => {
 					<div className='card medium grey darken-4 hoverable'>
 						<div className='card-content white-text'>
 							<span className='card-title activator'>
-								{name} : {totalHours} hours {totalMins} mins
+								{name} : {totalHours} hours {totalMins > 59 ? minsLeftOver : totalMins}
+								mins
 								<i className='material-icons right'>more_vert</i>
 							</span>
 							<div className='row'>
