@@ -2,6 +2,7 @@ const express = require('express')
 const auth = require('../middleware/auth.js')
 const router = express.Router()
 const Path = require('../models/Path.js')
+const NoblePathWake = require('../models/NoblePathWake.js')
 
 // @route       GET api/records
 // @desc        get logged in ronins full record (total time for all paths)
@@ -36,12 +37,83 @@ router.post('/', auth, async (req, res) => {
 		res.status(200).json(path)
 	} catch (error) {
 		console.error(error.message)
-		res.status(500).send('Server Error ')
+		res.status(500).send('Server Error')
 	}
 })
 
-// @route       PUT api/items/:id
-// @desc        edit and item so that it's boolean use is set to true false. This can be used later to tell 3 whether or not to equip/adorn the item or not.
+// @route       POST api/path/noblePathWake
+// @desc        add a noble path wake to the user interface. Not the entries route.
+// @access      private
+
+router.post('/noblePathWake', auth, async (req, res) => {
+	const { name } = req.body
+
+	try {
+		let noblePathWake = await NoblePathWake.findOne({ name })
+		if (noblePathWake) {
+			return res.status(400).json({
+				msg: 'Wake Path Already Initialised',
+			})
+		} else {
+			noblePathWake = new NoblePathWake({
+				name,
+				ronin: req.ronin.id,
+			})
+
+			const noblePath = await noblePathWake.save()
+
+			res.status(200).json(noblePath)
+		}
+	} catch (err) {
+		console.error(err.message)
+		res.status(500).send({ msg: 'server error' })
+	}
+})
+// @route		GET a WAKE NOBLE PATH
+// @desc		get noble wake path if exists
+// @access		private
+
+router.get('/noblePathWake', auth, async (req, res) => {
+	try {
+		const allNoblePathWake = await NoblePathWake.find({
+			ronin: req.ronin.id,
+		}).sort({
+			date: -1,
+		})
+		res.json(allNoblePathWake)
+	} catch (err) {
+		console.error(err.message)
+		res.status(500).send('server error')
+	}
+})
+
+// @route		Post a wake time entry api/paths
+// @desc		add wake time on noblePathWake
+// @access		private
+
+router.post('/noblePathWakeEntry/:id', auth, async (req, res) => {
+	try {
+		const noblePath = await NoblePathWake.findById(req.params.id)
+		console.log(req.body.hour)
+		const newEntry = {
+			hour: req.body.hour,
+			minute: req.body.minute,
+			notes: req.body.notes,
+		}
+
+		noblePath.entries.unshift(newEntry)
+
+		await noblePath.save()
+
+		res.json(noblePath)
+	} catch (err) {
+		console.error(err)
+		res.status(500).send('entry addition failed')
+	}
+})
+
+// @route       PUT api/value/:id
+// @desc        update the value of a path. Not in use atm.
 // @access      private
 router.put('/:id', auth, async (req, res) => {
 	// extract the values needing change from the client req object

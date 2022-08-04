@@ -1,33 +1,24 @@
 import React, { useState } from 'react'
 
-import { addPath, usePath } from '../../context/Paths/PathState'
+import { addNoblePath, usePath } from '../../context/Paths/PathState'
+
 const initialPath = {
-	name: '',
-	value: '',
+	name: 'Wake',
 }
 
-const AddPath = () => {
+const AddNoblePath = () => {
+	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
 	const [pathState, pathDispatch] = usePath()
 
-	const { name, value } = pathState
+	const [path] = useState(initialPath)
 
-	const [path, setPath] = useState(initialPath)
+	const { name } = path
 
 	const [hideState, setHide] = useState(false)
 
-	const onChange = (e) =>
-		setPath({
-			...path,
-			[e.target.name]: e.target.value,
-		})
-
 	const onSubmit = (e) => {
 		e.preventDefault()
-		addPath(pathDispatch, path)
-		setPath({
-			name: '',
-			value: '',
-		})
+		addNoblePath(pathDispatch, path)
 	}
 
 	const onHide = () => {
@@ -39,31 +30,14 @@ const AddPath = () => {
 			<div className='row'>
 				<div className='col 12'>
 					<div className='row'>
-						<input
-							type='text'
-							name='name'
-							placeholder='name'
-							value={name}
-							onChange={onChange}
-							className='black-text'
-						/>
-					</div>
-					<div className='row'>
-						<input
-							type='text'
-							name='value'
-							value={value}
-							placeholder='Set initial value if required'
-							onChange={onChange}
-							className='black-text'
-						/>
+						<h3>{name}</h3>
 					</div>
 				</div>
 				<div className='row'>
 					<input
 						type='submit'
 						value='Add Path'
-						className='waves-effect waves-light btn black white-text'
+						className='waves-effect waves-light btn white-text'
 					/>
 				</div>
 			</div>
@@ -73,14 +47,14 @@ const AddPath = () => {
 	return (
 		<div>
 			<button
-				className='btn-floating btn-large waves-effect waves-light black'
+				className='btn-floating btn-large waves-effect waves-light red'
 				onClick={onHide}
 			>
-				<i className='material-icons'>add</i>
+				<i className='material-icons black'>add</i>
 			</button>
 			{hideState && form}
 		</div>
 	)
 }
 
-export default AddPath
+export default AddNoblePath

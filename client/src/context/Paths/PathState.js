@@ -5,12 +5,15 @@ import pathReducer from './pathReducer.js'
 
 import {
 	ADD_PATH,
+	ADD_NOBLEPATH,
 	CLEAR_CURRENT,
 	DELETE_PATH,
 	GET_PATHS,
+	GET_NOBLE_PATHS,
 	PATH_ERROR,
 	SET_CURRENT,
 	UPDATE_PATH,
+	UPDATE_NOBLE_PATH,
 } from '../types.js'
 
 // refactoring ----->
@@ -84,6 +87,52 @@ export const deletePath = async (dispatch, _id) => {
 	}
 }
 
+// ADD NOBLE PATH
+export const addNoblePath = async (dispatch, path) => {
+	try {
+		const res = await axios.post(`/api/paths/noblePath${path.name}`, path)
+		// i've put the template literal in here so that when I come to make the other noble paths I can just change the noble path name rather than writing out a whole new function
+		console.log(res.data)
+		// if dispatch doesn't run, state won't update
+		dispatch({ type: ADD_NOBLEPATH, payload: res.data })
+	} catch (error) {
+		dispatch({
+			type: PATH_ERROR,
+			payload: error.response,
+		})
+	}
+}
+// GET NOBLE PATHS
+export const getNoblePaths = async (dispatch, noblePathName) => {
+	try {
+		const res = await axios.get(`/api/paths/noblePath${noblePathName}`)
+		console.log(res.data)
+		dispatch({ type: GET_NOBLE_PATHS, payload: res.data })
+	} catch (err) {
+		dispatch({ type: PATH_ERROR, payload: err.response })
+	}
+}
+
+// POST NOBLE PATH WAKE ENTRY
+export const noblePathEntry = async (dispatch, path) => {
+	try {
+		console.log(path)
+		const res = await axios.post(
+			`/api/paths/noblePath${path.name}Entry/${path._id}`,
+			path
+		)
+		dispatch({
+			type: UPDATE_NOBLE_PATH,
+			payload: res.data,
+		})
+	} catch (error) {
+		dispatch({
+			type: PATH_ERROR,
+			payload: error.response,
+		})
+	}
+}
+
 // SET CURRENT
 export const setCurrent = (dispatch, path) => {
 	dispatch({ type: SET_CURRENT, payload: path })
@@ -97,6 +146,7 @@ export const clearCurrent = (dispatch) => {
 const PathState = (props) => {
 	const initialState = {
 		paths: [],
+		noblePaths: [],
 		current: null,
 		error: null,
 		loading: true,

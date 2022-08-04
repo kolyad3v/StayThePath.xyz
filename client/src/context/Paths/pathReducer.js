@@ -1,9 +1,12 @@
 import {
 	ADD_PATH,
+	ADD_NOBLEPATH,
 	DELETE_PATH,
 	PATH_ERROR,
 	UPDATE_PATH,
+	UPDATE_NOBLE_PATH,
 	GET_PATHS,
+	GET_NOBLE_PATHS,
 	HIDE_PATHS,
 	SET_CURRENT,
 	CLEAR_CURRENT,
@@ -17,10 +20,22 @@ export default (state, action) => {
 				paths: [...state.paths, action.payload],
 				loading: false,
 			}
+		case ADD_NOBLEPATH:
+			return {
+				...state,
+				noblePaths: [...state.noblePaths, action.payload],
+				loading: false,
+			}
 		case GET_PATHS:
 			return {
 				...state,
 				paths: action.payload,
+				loading: false,
+			}
+		case GET_NOBLE_PATHS:
+			return {
+				...state,
+				noblePaths: action.payload,
 				loading: false,
 			}
 		case DELETE_PATH:
@@ -38,6 +53,13 @@ export default (state, action) => {
 			return {
 				...state,
 				paths: state.paths.map((path) =>
+					path._id === action.payload._id ? action.payload : path
+				),
+			}
+		case UPDATE_NOBLE_PATH:
+			return {
+				...state,
+				noblePaths: state.noblePaths.map((path) =>
 					path._id === action.payload._id ? action.payload : path
 				),
 			}

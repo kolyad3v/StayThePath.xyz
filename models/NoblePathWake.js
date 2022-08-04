@@ -35,4 +35,4 @@ const NoblePathWakeShema = mongoose.Schema({
 	},
 })
 
-module.exports = mongoose.model('path', NoblePathWakeShema)
+module.exports = mongoose.model('noblePath', NoblePathWakeShema)

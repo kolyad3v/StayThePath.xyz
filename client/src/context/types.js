@@ -1,11 +1,13 @@
 export const GET_PATHS = 'GET_PATHS'
 export const CLEAR_PATHS = 'CLEAR_PATHS'
-
+export const GET_NOBLE_PATHS = 'GET_NOBLE_PATHS'
 export const ADD_PATH = 'ADD_PATH'
+export const ADD_NOBLEPATH = 'ADD_NOBLEPATH'
 export const DELETE_PATH = 'DELETE_PATH'
 
 export const PATH_ERROR = 'PATH_ERROR'
 export const UPDATE_PATH = 'UPDATE_PATH'
+export const UPDATE_NOBLE_PATH = 'UPDATE_NOBLE_PATH'
 
 export const SET_CURRENT = 'SET_CURRENT'
 export const CLEAR_CURRENT = 'CLEAR_CURRENT'
