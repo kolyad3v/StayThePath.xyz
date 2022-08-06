@@ -14,9 +14,23 @@ const DisplayPaths = () => {
 	}, [displayDispatch])
 
 	const displayPaths = paths.map((path) => <Path key={path._id} path={path} />)
-	const displayNoblePaths = noblePaths.length>0 ?noblePaths.map((path) => (
-		<NoblePathWake key={path._id} noblePath={path} />
-	)) : null
+
+	const displayNoblePaths =
+		noblePaths.length > 0
+			? noblePaths.map((path) => {
+					switch (path.name) {
+						case 'Wake':
+							return <NoblePathWake key={path._id} noblePath={path} />
+
+						default:
+							break
+					}
+					// if (path.name == 'Wake') {
+					// } else if (path.name === 'Training') {
+					// 	console.log(path.name)
+					// }
+			  })
+			: null
 	return (
 		<Fragment>
 			{displayPaths}
