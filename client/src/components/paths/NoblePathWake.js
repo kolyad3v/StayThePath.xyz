@@ -116,33 +116,42 @@ const NoblePathWake = ({ noblePath }) => {
 								<div className='col s1'></div>
 							</div>
 
-							{readyForUpdateState ? (
-								<div className='input-field col s12 '>
-									<input name='hour' onChange={onChange} className='white-text' />
-								</div>
-							) : null}
+							<div className='row'>
+								{readyForUpdateState ? (
+									<div className='input-field col s2 '>
+										<input
+											name='hour'
+											onChange={onChange}
+											placeholder='Hour'
+											className='white-text'
+										/>
+									</div>
+								) : null}
+								{readyForUpdateState ? (
+									<div className='input-field col s2'>
+										<input
+											name='minute'
+											onChange={onChange}
+											placeholder='Min'
+											required
+											className='white-text'
+										/>
+									</div>
+								) : null}
 
-							{readyForUpdateState ? (
-								<div className='input-field col s12'>
-									<input
-										name='minute'
-										onChange={onChange}
-										placeholder='Wake mins'
-										required
-										className='white-text'
-									/>{' '}
+								<div className='row'>
+									{readyForUpdateState ? (
+										<div className='input-field col s12'>
+											<textarea
+												name='notes'
+												onChange={onChange}
+												placeholder='Easy/hard wake up, poor sleep, etc'
+												className='white-text materialize-textarea'
+											/>
+										</div>
+									) : null}
 								</div>
-							) : null}
-							{readyForUpdateState ? (
-								<div className='input-field col s12'>
-									<textarea
-										name='notes'
-										onChange={onChange}
-										placeholder='Easy/hard wake up, poor sleep, etc'
-										className='white-text materialize-textarea'
-									/>
-								</div>
-							) : null}
+							</div>
 						</div>
 						<div className='card-reveal '>
 							<span className='card-title grey-text text-darken-4'>
