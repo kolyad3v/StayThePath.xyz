@@ -3,7 +3,7 @@ const auth = require('../middleware/auth.js')
 const router = express.Router()
 const Path = require('../models/Path.js')
 const NoblePathWake = require('../models/NoblePathWake.js')
-
+const NoblePathGym = require('../models/NoblePathGym.js')
 // @route       GET api/records
 // @desc        get logged in ronins full record (total time for all paths)
 // @access      private
@@ -40,6 +40,8 @@ router.post('/', auth, async (req, res) => {
 		res.status(500).send('Server Error')
 	}
 })
+
+// NOBLE PATH WAKE
 
 // @route       POST api/path/noblePathWake
 // @desc        add a noble path wake to the user interface. Not the entries route.
@@ -92,12 +94,86 @@ router.get('/noblePathWake', auth, async (req, res) => {
 // @access		private
 
 router.post('/noblePathWakeEntry/:id', auth, async (req, res) => {
+	console.log(req.params)
 	try {
 		const noblePath = await NoblePathWake.findById(req.params.id)
 		console.log(req.body.hour)
 		const newEntry = {
 			hour: req.body.hour,
 			minute: req.body.minute,
+			notes: req.body.notes,
+		}
+
+		noblePath.entries.unshift(newEntry)
+
+		await noblePath.save()
+
+		res.json(noblePath)
+	} catch (err) {
+		console.error(err)
+		res.status(500).send('entry addition failed')
+	}
+})
+
+// NOBLE PATH GYM --->
+
+// @route       POST api/path/noblePathGym
+// @desc        add the noble path GYM to the user interface. Not the entries route.
+// @access      private
+
+router.post('/noblePathGym', auth, async (req, res) => {
+	const { name } = req.body
+
+	try {
+		let noblePath = await NoblePathGym.findOne({ name })
+		if (noblePath) {
+			return res.status(400).json({
+				msg: 'Gym Path Already Initialised',
+			})
+		} else {
+			noblePath = new NoblePathGym({
+				name,
+				ronin: req.ronin.id,
+			})
+
+			const noblePathGym = await noblePath.save()
+			res.status(200).json(noblePathGym)
+		}
+	} catch (err) {
+		console.error(err.message)
+		res.status(500).send({ msg: 'server error' })
+	}
+})
+
+// @route		GET a WAKE NOBLE PATH
+// @desc		get noble wake path if exists
+// @access		private
+
+router.get('/noblePathGym', auth, async (req, res) => {
+	try {
+		const noblePathGym = await NoblePathGym.find({
+			ronin: req.ronin.id,
+		}).sort({
+			date: -1,
+		})
+		res.json(noblePathGym)
+	} catch (err) {
+		console.error(err.message)
+		res.status(500).send('server error')
+	}
+})
+
+// @route		Post api/paths
+// @desc		add a gym session entry
+// @access		private
+
+router.post('/noblePathGymEntry/:id', auth, async (req, res) => {
+	try {
+		const noblePath = await NoblePathGym.findById(req.params.id)
+
+		const newEntry = {
+			time: req.body.time,
+			exercises: req.body.exercises,
 			notes: req.body.notes,
 		}
 
