@@ -26,7 +26,7 @@ const entry = {
 	_id: '',
 }
 
-const NoblePathWake = ({ noblePath }) => {
+const NoblePathGym = ({ noblePath }) => {
 	const alertContext = useContext(AlertContext)
 	const { setAlert } = alertContext
 	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
@@ -183,8 +183,8 @@ const NoblePathWake = ({ noblePath }) => {
 	)
 }
 
-NoblePathWake.propTypes = {
+NoblePathGym.propTypes = {
 	noblePath: PropTypes.object,
 }
 
-export default NoblePathWake
+export default NoblePathGym
