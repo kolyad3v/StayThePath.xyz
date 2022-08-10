@@ -3,14 +3,14 @@ import React, { useState } from 'react'
 import { addNoblePath, usePath } from '../../context/Paths/PathState'
 
 const initialPath = {
-	name: 'Wake',
+	name: '',
 }
 
 const AddNoblePath = () => {
 	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
 	const [pathState, pathDispatch] = usePath()
 
-	const [path] = useState(initialPath)
+	const [path, setPath] = useState(initialPath)
 
 	const { name } = path
 

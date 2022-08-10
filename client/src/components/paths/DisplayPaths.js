@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import Path from './Path'
 import NoblePathWake from './NoblePathWake'
+import NoblePathGym from './NoblePathGym'
 
 import { usePath, getPaths, getNoblePaths } from '../../context/Paths/PathState'
 const DisplayPaths = () => {
@@ -21,14 +22,11 @@ const DisplayPaths = () => {
 					switch (path.name) {
 						case 'Wake':
 							return <NoblePathWake key={path._id} noblePath={path} />
-
+						case 'Gym':
+							return <NoblePathGym key={path._id} noblePath={path} />
 						default:
 							break
 					}
-					// if (path.name == 'Wake') {
-					// } else if (path.name === 'Training') {
-					// 	console.log(path.name)
-					// }
 			  })
 			: null
 	return (

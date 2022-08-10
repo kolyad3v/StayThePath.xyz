@@ -8,6 +8,7 @@ import AlertContext from '../../context/alert/alertContext'
 // --> this component will display the entries and enable switching to add an entry
 
 const entry = {
+	name: '',
 	time: '',
 	exercises: [
 		{
