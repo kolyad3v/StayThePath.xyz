@@ -3,14 +3,14 @@ import React, { useState } from 'react'
 import { addNoblePath, usePath } from '../../context/Paths/PathState'
 
 const initialPath = {
-	name: 'Wake',
+	name: '',
 }
 
 const AddNoblePath = () => {
 	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
 	const [pathState, pathDispatch] = usePath()
 
-	const [path] = useState(initialPath)
+	const [path, setPath] = useState(initialPath)
 
 	const { name } = path
 
@@ -21,6 +21,21 @@ const AddNoblePath = () => {
 		addNoblePath(pathDispatch, path)
 	}
 
+	const onChange = (e) => {
+		if (path.name === '') {
+			setPath({
+				...path,
+				name: e.target.value,
+			})
+		} else {
+			console.log(`deleting noble path ${path.name}`)
+			setPath({
+				...path,
+				name: '',
+			})
+		}
+	}
+
 	const onHide = () => {
 		setHide(!hideState)
 	}
@@ -29,16 +44,57 @@ const AddNoblePath = () => {
 		<form onSubmit={onSubmit}>
 			<div className='row'>
 				<div className='col 12'>
-					<div className='row'>
-						<h3>{name}</h3>
-					</div>
-				</div>
-				<div className='row'>
 					<input
 						type='submit'
 						value='Add Path'
 						className='waves-effect waves-light btn white-text'
 					/>
+				</div>
+			</div>
+
+			<div className='row'>
+				<div className='col 12'>
+					<p>
+						<label>
+							<input
+								type='checkbox'
+								value='Gym'
+								className='filled-in'
+								onChange={onchange}
+							/>
+							<span>Activate Gym Path</span>
+						</label>
+					</p>
+				</div>
+			</div>
+			<div className='row'>
+				<div className='col 12'>
+					<p>
+						<label>
+							<input
+								type='checkbox'
+								value='Wake'
+								className='filled-in'
+								onChange={onchange}
+							/>
+							<span>Activate Wake Path</span>
+						</label>
+					</p>
+				</div>
+			</div>
+			<div className='row'>
+				<div className='col 12'>
+					<p>
+						<label>
+							<input
+								type='checkbox'
+								value='Food'
+								className='filled-in'
+								onChange={onChange}
+							/>
+							<span>Activate Food Path</span>
+						</label>
+					</p>
 				</div>
 			</div>
 		</form>
@@ -47,10 +103,10 @@ const AddNoblePath = () => {
 	return (
 		<div>
 			<button
-				className='btn-floating btn-large waves-effect waves-light red'
+				className='btn-floating btn-large waves-effect waves-light black'
 				onClick={onHide}
 			>
-				<i className='material-icons black'>add</i>
+				<i className='material-icons'>add</i>
 			</button>
 			{hideState && form}
 		</div>
