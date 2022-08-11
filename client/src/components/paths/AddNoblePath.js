@@ -22,7 +22,7 @@ const AddNoblePath = () => {
 	}
 
 	const onChange = (e) => {
-		if (path.name === '') {
+		if (name === '') {
 			setPath({
 				...path,
 				name: e.target.value,
@@ -60,7 +60,7 @@ const AddNoblePath = () => {
 								type='checkbox'
 								value='Gym'
 								className='filled-in'
-								onChange={onchange}
+								onChange={onChange}
 							/>
 							<span>Activate Gym Path</span>
 						</label>
@@ -75,7 +75,7 @@ const AddNoblePath = () => {
 								type='checkbox'
 								value='Wake'
 								className='filled-in'
-								onChange={onchange}
+								onChange={onChange}
 							/>
 							<span>Activate Wake Path</span>
 						</label>

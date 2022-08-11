@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 import { usePath, noblePathEntry } from '../../context/Paths/PathState'
@@ -34,6 +34,8 @@ const NoblePathGym = ({ noblePath }) => {
 	const [pathState, pathDispatch] = usePath()
 
 	const { _id, entries } = noblePath
+	console.log(noblePath, 'noblepath')
+	console.log(entries, 'sessions')
 
 	const [entryState, setEntry] = useState(entry)
 	const { name } = entryState
@@ -61,8 +63,21 @@ const NoblePathGym = ({ noblePath }) => {
 			setReadyForUpdateState(false)
 			setEntry({
 				...entryState,
-				hour: '',
-				minute: '',
+				name: '',
+				time: '',
+				exercises: [
+					{
+						name: '',
+						sets: [
+							{
+								reps: 0,
+								weight: 0,
+								quality: '',
+							},
+						],
+						notes: '',
+					},
+				],
 				notes: '',
 				_id: '',
 			})
@@ -79,18 +94,19 @@ const NoblePathGym = ({ noblePath }) => {
 		setAlert('Cleared', 'light')
 	}
 
-	let entriesArr =
-		entries.length > 0
-			? entries.map((entry) => (
-					<tr style={{ fontSize: '1rem' }} key={entry._id}>
-						<td>
-							{entry.hour}:{entry.minute}
-						</td>
-						<td>{entry.notes}</td>
-						<td>{new Date(entry.date).toDateString()}</td>
-					</tr>
-			  ))
-			: null
+	let exercises = entries[0].exercises[0].sets.map((el) => <p>{el.reps}</p>)
+
+	// let entriesArr =
+	// 	entries.length > 0
+	// 		? entries.map((entry) => (
+	// 				<tr style={{ fontSize: '1rem' }} key={entry._id}>
+	// 					<td>{entry.time}</td>
+	// 					<td>{entry.notes}</td>
+	// 					<td>{exercises}</td>
+	// 					<td>{new Date(entry.date).toDateString()}</td>
+	// 				</tr>
+	// 		  ))
+	// 		: null
 
 	return (
 		<div>
@@ -99,7 +115,7 @@ const NoblePathGym = ({ noblePath }) => {
 					<div className='card medium grey darken-2 hoverable'>
 						<div className='card-content white-text'>
 							<span className='card-title activator'>
-								{name} Time
+								{name}
 								<i className='material-icons right'>more_vert</i>
 							</span>
 							<div className='row'>
@@ -128,11 +144,11 @@ const NoblePathGym = ({ noblePath }) => {
 								<div className='col s1'></div>
 							</div>
 
-							{readyForUpdateState ? (
+							{readyForUpdateState && (
 								<div className='input-field col s12 '>
 									<input name='hour' onChange={onChange} className='white-text' />
 								</div>
-							) : null}
+							)}
 
 							{readyForUpdateState ? (
 								<div className='input-field col s12'>
@@ -164,13 +180,16 @@ const NoblePathGym = ({ noblePath }) => {
 								<thead>
 									<tr>
 										<th>
-											<h5>Wake Time</h5>
+											<p>Time</p>
 										</th>
 										<th>
-											<h5>Notes</h5>
+											<p>Notes</p>
 										</th>
 										<th>
-											<h5>Date</h5>
+											<p>Sets</p>
+										</th>
+										<th>
+											<p>Date</p>
 										</th>
 									</tr>
 								</thead>
