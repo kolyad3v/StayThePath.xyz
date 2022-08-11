@@ -1,12 +1,21 @@
 import {
 	ADD_PATH,
-	ADD_NOBLEPATH,
+	ADD_NOBLEPATH_WAKE,
+	ADD_NOBLEPATH_GYM,
+	ADD_NOBLEPATH_FOOD,
+	ADD_NOBLEPATH_JOURNAL,
 	DELETE_PATH,
 	PATH_ERROR,
 	UPDATE_PATH,
-	UPDATE_NOBLE_PATH,
+	UPDATE_NOBLE_PATH_WAKE,
+	UPDATE_NOBLE_PATH_GYM,
+	UPDATE_NOBLE_PATH_FOOD,
+	UPDATE_NOBLE_PATH_JOURNAL,
 	GET_PATHS,
-	GET_NOBLE_PATHS,
+	GET_NOBLE_PATH_WAKE,
+	GET_NOBLE_PATH_GYM,
+	GET_NOBLE_PATH_FOOD,
+	GET_NOBLE_PATH_JOURNAL,
 	HIDE_PATHS,
 	SET_CURRENT,
 	CLEAR_CURRENT,
@@ -20,22 +29,59 @@ export default (state, action) => {
 				paths: [...state.paths, action.payload],
 				loading: false,
 			}
-		case ADD_NOBLEPATH:
+		case ADD_NOBLEPATH_WAKE:
 			return {
 				...state,
-				noblePaths: [...state.noblePaths, action.payload],
+				noblePathWake: [...state.noblePathWake, action.payload],
 				loading: false,
 			}
+		case ADD_NOBLEPATH_GYM:
+			return {
+				...state,
+				noblePathGym: [...state.noblePathGym, action.payload],
+				loading: false,
+			}
+		case ADD_NOBLEPATH_FOOD:
+			return {
+				...state,
+				noblePathFood: [...state.noblePathFood, action.payload],
+				loading: false,
+			}
+		case ADD_NOBLEPATH_JOURNAL:
+			return {
+				...state,
+				noblePathJournal: [...state.noblePathJournal, action.payload],
+				loading: false,
+			}
+
 		case GET_PATHS:
 			return {
 				...state,
 				paths: action.payload,
 				loading: false,
 			}
-		case GET_NOBLE_PATHS:
+		case GET_NOBLE_PATH_WAKE:
 			return {
 				...state,
-				noblePaths: action.payload,
+				noblePathWake: action.payload,
+				loading: false,
+			}
+		case GET_NOBLE_PATH_GYM:
+			return {
+				...state,
+				noblePathGym: action.payload,
+				loading: false,
+			}
+		case GET_NOBLE_PATH_FOOD:
+			return {
+				...state,
+				noblePathFood: action.payload,
+				loading: false,
+			}
+		case GET_NOBLE_PATH_JOURNAL:
+			return {
+				...state,
+				journal: action.payload,
 				loading: false,
 			}
 		case DELETE_PATH:
@@ -56,10 +102,31 @@ export default (state, action) => {
 					path._id === action.payload._id ? action.payload : path
 				),
 			}
-		case UPDATE_NOBLE_PATH:
+		case UPDATE_NOBLE_PATH_WAKE:
 			return {
 				...state,
-				noblePaths: state.noblePaths.map((path) =>
+				noblePathWake: state.noblePathWake.map((path) =>
+					path._id === action.payload._id ? action.payload : path
+				),
+			}
+		case UPDATE_NOBLE_PATH_GYM:
+			return {
+				...state,
+				noblePathGym: state.noblePathGym.map((path) =>
+					path._id === action.payload._id ? action.payload : path
+				),
+			}
+		case UPDATE_NOBLE_PATH_FOOD:
+			return {
+				...state,
+				noblePathFood: state.noblePathFood.map((path) =>
+					path._id === action.payload._id ? action.payload : path
+				),
+			}
+		case UPDATE_NOBLE_PATH_JOURNAL:
+			return {
+				...state,
+				noblePathJournal: state.noblePathJournal.map((path) =>
 					path._id === action.payload._id ? action.payload : path
 				),
 			}

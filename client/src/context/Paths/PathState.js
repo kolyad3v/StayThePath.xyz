@@ -5,15 +5,24 @@ import pathReducer from './pathReducer.js'
 
 import {
 	ADD_PATH,
-	ADD_NOBLEPATH,
+	ADD_NOBLEPATH_WAKE,
+	ADD_NOBLEPATH_GYM,
+	ADD_NOBLEPATH_FOOD,
+	ADD_NOBLEPATH_JOURNAL,
 	CLEAR_CURRENT,
 	DELETE_PATH,
 	GET_PATHS,
-	GET_NOBLE_PATHS,
+	GET_NOBLE_PATH_WAKE,
+	GET_NOBLE_PATH_GYM,
+	GET_NOBLE_PATH_FOOD,
+	GET_NOBLE_PATH_JOURNAL,
+	UPDATE_NOBLE_PATH_WAKE,
+	UPDATE_NOBLE_PATH_GYM,
+	UPDATE_NOBLE_PATH_FOOD,
+	UPDATE_NOBLE_PATH_JOURNAL,
 	PATH_ERROR,
 	SET_CURRENT,
 	UPDATE_PATH,
-	UPDATE_NOBLE_PATH,
 } from '../types.js'
 
 // refactoring ----->
@@ -90,11 +99,39 @@ export const deletePath = async (dispatch, _id) => {
 // ADD NOBLE PATH
 export const addNoblePath = async (dispatch, path) => {
 	try {
-		const res = await axios.post(`/api/paths/noblePath${path.name}`, path)
-		// i've put the template literal in here so that when I come to make the other noble paths I can just change the noble path name rather than writing out a whole new function
-		console.log(res.data)
-		// if dispatch doesn't run, state won't update
-		dispatch({ type: ADD_NOBLEPATH, payload: res.data })
+		// const res = await axios.post(`/api/paths/noblePath${path.name}`, path)
+		// // i've put the template literal in here so that when I come to make the other noble paths I can just change the noble path name rather than writing out a whole new function
+		// console.log(res.data)
+		// // if dispatch doesn't run, state won't update
+		// dispatch({ type: ADD_NOBLEPATH, payload: res.data })
+
+		switch (path.name) {
+			case 'Gym':
+				let res = await axios.post(`/api/paths/noblePath${path.name}`)
+				console.log(res.data)
+				dispatch({ type: ADD_NOBLEPATH_GYM, payload: res.data })
+				break
+			case 'Wake':
+				let resWake = await axios.post(`/api/paths/noblePath${path.name}`)
+				console.log(resWake.data)
+				dispatch({ type: ADD_NOBLEPATH_WAKE, payload: resWake.data })
+				break
+
+			case 'Food':
+				let resFood = await axios.post(`/api/noblePath${path.name}`)
+				console.log(resFood.data)
+				dispatch({ type: ADD_NOBLEPATH_FOOD, payload: resFood.data })
+				break
+
+			case 'Journal':
+				let resJournal = await axios.post(`/api/${path.name}`)
+				console.log(resJournal.data)
+				dispatch({ type: ADD_NOBLEPATH_JOURNAL, payload: resJournal.data })
+				break
+
+			default:
+				break
+		}
 	} catch (error) {
 		dispatch({
 			type: PATH_ERROR,
@@ -105,26 +142,94 @@ export const addNoblePath = async (dispatch, path) => {
 // GET NOBLE PATHS
 export const getNoblePaths = async (dispatch, noblePathName) => {
 	try {
-		const res = await axios.get(`/api/paths/noblePath${noblePathName}`)
-		console.log(res.data)
-		dispatch({ type: GET_NOBLE_PATHS, payload: res.data })
+		switch (noblePathName) {
+			case 'Gym':
+				let res = await axios.get(`/api/paths/noblePath${noblePathName}`)
+				console.log(res.data)
+				dispatch({ type: GET_NOBLE_PATH_GYM, payload: res.data })
+				break
+			case 'Wake':
+				let resWake = await axios.get(`/api/paths/noblePath${noblePathName}`)
+				console.log(resWake.data)
+				dispatch({ type: GET_NOBLE_PATH_WAKE, payload: resWake.data })
+				break
+
+			case 'Food':
+				let resFood = await axios.get(`/api/noblePath${noblePathName}`)
+				console.log(resFood.data)
+				dispatch({ type: GET_NOBLE_PATH_FOOD, payload: resFood.data })
+				break
+
+			case 'Journal':
+				let resJournal = await axios.get(`/api/${noblePathName}`)
+				console.log(resJournal.data)
+				dispatch({ type: GET_NOBLE_PATH_JOURNAL, payload: resJournal.data })
+				break
+
+			default:
+				break
+		}
+		// if (noblePathName === 'Gym') {
+		// 	dispatch({ type: GET_NOBLE_PATH_GYM, payload: res.data })
+		// } else {
+		// 	dispatch({ type: GET_NOBLE_PATHS, payload: res.data })
+		// }
 	} catch (err) {
 		dispatch({ type: PATH_ERROR, payload: err.response })
 	}
 }
-
 // POST NOBLE PATH WAKE ENTRY
 export const noblePathEntry = async (dispatch, path) => {
 	try {
-		console.log(path)
-		const res = await axios.post(
-			`/api/paths/noblePath${path.name}Entry/${path._id}`,
-			path
-		)
-		dispatch({
-			type: UPDATE_NOBLE_PATH,
-			payload: res.data,
-		})
+		// console.log(path)
+		// const res = await axios.post(
+		// 	`/api/paths/noblePath${path.name}Entry/${path._id}`,
+		// 	path
+		// )
+		// dispatch({
+		// 	type: UPDATE_NOBLE_PATH,
+		// 	payload: res.data,
+		// })
+
+		switch (path.name) {
+			case 'Gym':
+				let res = await axios.post(
+					`/api/paths/noblePath${path.name}Entry/${path._id}`,
+					path
+				)
+				console.log(res.data)
+				dispatch({ type: UPDATE_NOBLE_PATH_GYM, payload: res.data })
+				break
+			case 'Wake':
+				let resWake = await axios.post(
+					`/api/paths/noblePath${path.name}Entry/${path._id}`,
+					path
+				)
+				console.log(resWake.data)
+				dispatch({ type: UPDATE_NOBLE_PATH_WAKE, payload: resWake.data })
+				break
+
+			case 'Food':
+				let resFood = await axios.post(
+					`/api/noblePath${path.name}/Entry/${path._id}`,
+					path
+				)
+				console.log(resFood.data)
+				dispatch({ type: UPDATE_NOBLE_PATH_FOOD, payload: resFood.data })
+				break
+
+			case 'Journal':
+				let resJournal = await axios.post(
+					`/api/${path.name}/JournalEntry/${path._id}`,
+					path
+				)
+				console.log(resJournal.data)
+				dispatch({ type: UPDATE_NOBLE_PATH_JOURNAL, payload: resJournal.data })
+				break
+
+			default:
+				break
+		}
 	} catch (error) {
 		dispatch({
 			type: PATH_ERROR,
@@ -146,7 +251,10 @@ export const clearCurrent = (dispatch) => {
 const PathState = (props) => {
 	const initialState = {
 		paths: [],
-		noblePaths: [],
+		noblePathWake: [],
+		noblePathGym: [],
+		noblePathFood: [],
+		noblePathJournal: [],
 		current: null,
 		error: null,
 		loading: true,

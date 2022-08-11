@@ -1,4 +1,4 @@
-import React, { useState, useContext, Fragment } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import { usePath, noblePathEntry } from '../../context/Paths/PathState'
@@ -8,36 +8,23 @@ import AlertContext from '../../context/alert/alertContext'
 // --> this component will display the entries and enable switching to add an entry
 
 const entry = {
-	name: '',
-	time: '',
-	exercises: [
-		{
-			name: '',
-			sets: [
-				{
-					reps: 0,
-					weight: 0,
-					quality: '',
-				},
-			],
-			notes: '',
-		},
-	],
-	notes: '',
+	name: 'Journal',
+	subject: '',
+	category: '',
+	body: '',
 	_id: '',
 }
 
-const NoblePathGym = ({ noblePath }) => {
+const NoblePathWake = ({ noblePath }) => {
 	const alertContext = useContext(AlertContext)
 	const { setAlert } = alertContext
 	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
 	const [pathState, pathDispatch] = usePath()
 
-	const { _id, entries, name } = noblePath
-	console.log(noblePath, 'noblepath')
-	console.log(entries, 'sessions')
+	const { _id, entries } = noblePath
 
 	const [entryState, setEntry] = useState(entry)
+	const { name } = entryState
 
 	const [readyForUpdateState, setReadyForUpdateState] = useState(false)
 
@@ -62,22 +49,10 @@ const NoblePathGym = ({ noblePath }) => {
 			setReadyForUpdateState(false)
 			setEntry({
 				...entryState,
-				name: '',
-				time: '',
-				exercises: [
-					{
-						name: '',
-						sets: [
-							{
-								reps: 0,
-								weight: 0,
-								quality: '',
-							},
-						],
-						notes: '',
-					},
-				],
-				notes: '',
+				name: 'Journal',
+				subject: '',
+				category: '',
+				body: '',
 				_id: '',
 			})
 		}
@@ -93,19 +68,16 @@ const NoblePathGym = ({ noblePath }) => {
 		setAlert('Cleared', 'light')
 	}
 
-	let exercises = entries[0].exercises[0].sets.map((el) => <p>{el.reps}</p>)
-
-	// let entriesArr =
-	// 	entries.length > 0
-	// 		? entries.map((entry) => (
-	// 				<tr style={{ fontSize: '1rem' }} key={entry._id}>
-	// 					<td>{entry.time}</td>
-	// 					<td>{entry.notes}</td>
-	// 					<td>{exercises}</td>
-	// 					<td>{new Date(entry.date).toDateString()}</td>
-	// 				</tr>
-	// 		  ))
-	// 		: null
+	let entriesArr =
+		entries.length > 0
+			? entries.map((entry) => (
+					<tr style={{ fontSize: '1rem' }} key={entry._id}>
+						<td></td>
+						<td>{entry.body}</td>
+						<td>{new Date(entry.date).toDateString()}</td>
+					</tr>
+			  ))
+			: null
 
 	return (
 		<div>
@@ -114,7 +86,7 @@ const NoblePathGym = ({ noblePath }) => {
 					<div className='card medium grey darken-2 hoverable'>
 						<div className='card-content white-text'>
 							<span className='card-title activator'>
-								{name}
+								{name} Time
 								<i className='material-icons right'>more_vert</i>
 							</span>
 							<div className='row'>
@@ -143,33 +115,42 @@ const NoblePathGym = ({ noblePath }) => {
 								<div className='col s1'></div>
 							</div>
 
-							{readyForUpdateState && (
-								<div className='input-field col s12 '>
-									<input name='hour' onChange={onChange} className='white-text' />
-								</div>
-							)}
+							<div className='row'>
+								{readyForUpdateState ? (
+									<div className='input-field col s2 '>
+										<input
+											name='subject'
+											onChange={onChange}
+											placeholder='Subject'
+											className='white-text'
+										/>
+									</div>
+								) : null}
+								{readyForUpdateState ? (
+									<div className='input-field col s2'>
+										<input
+											name='category'
+											onChange={onChange}
+											placeholder='Category'
+											required
+											className='white-text'
+										/>
+									</div>
+								) : null}
 
-							{readyForUpdateState ? (
-								<div className='input-field col s12'>
-									<input
-										name='minute'
-										onChange={onChange}
-										placeholder='Wake mins'
-										required
-										className='white-text'
-									/>{' '}
+								<div className='row'>
+									{readyForUpdateState ? (
+										<div className='input-field col s12'>
+											<textarea
+												name='body'
+												onChange={onChange}
+												placeholder='Today I witnessed a miracle...'
+												className='white-text materialize-textarea'
+											/>
+										</div>
+									) : null}
 								</div>
-							) : null}
-							{readyForUpdateState ? (
-								<div className='input-field col s12'>
-									<textarea
-										name='notes'
-										onChange={onChange}
-										placeholder='Easy/hard wake up, poor sleep, etc'
-										className='white-text materialize-textarea'
-									/>
-								</div>
-							) : null}
+							</div>
 						</div>
 						<div className='card-reveal '>
 							<span className='card-title grey-text text-darken-4'>
@@ -179,20 +160,17 @@ const NoblePathGym = ({ noblePath }) => {
 								<thead>
 									<tr>
 										<th>
-											<p>Time</p>
+											<h5>Wake Time</h5>
 										</th>
 										<th>
-											<p>Notes</p>
+											<h5>Notes</h5>
 										</th>
 										<th>
-											<p>Sets</p>
-										</th>
-										<th>
-											<p>Date</p>
+											<h5>Date</h5>
 										</th>
 									</tr>
 								</thead>
-								{/* <tbody>{entries && entriesArr}</tbody> */}
+								<tbody>{entries && entriesArr}</tbody>
 							</table>
 						</div>
 					</div>
@@ -202,8 +180,8 @@ const NoblePathGym = ({ noblePath }) => {
 	)
 }
 
-NoblePathGym.propTypes = {
+NoblePathWake.propTypes = {
 	noblePath: PropTypes.object,
 }
 
-export default NoblePathGym
+export default NoblePathWake

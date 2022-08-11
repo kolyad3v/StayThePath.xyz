@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const NoblePathFoodSchema = mongoose.Schema({
+const JournalSchema = mongoose.Schema({
 	ronin: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'ronins',
@@ -12,14 +12,15 @@ const NoblePathFoodSchema = mongoose.Schema({
 			ronin: {
 				type: mongoose.Schema.Types.ObjectId,
 			},
-			hour: {
-				type: Number,
-			},
-			minute: {
-				type: Number,
-			},
-			meal: {
+			subject: {
 				type: String,
+			},
+			category: {
+				type: String,
+			},
+			body: {
+				type: String,
+				requried: true,
 			},
 			date: {
 				type: Date,
@@ -31,4 +32,4 @@ const NoblePathFoodSchema = mongoose.Schema({
 	// I also don't think I need a time of creation for the noble path either. Will leave out for now.
 })
 
-module.exports = mongoose.model('noblePathFood', NoblePathFoodSchema)
+module.exports = mongoose.model('noblePathJournal', JournalSchema)

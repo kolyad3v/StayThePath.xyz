@@ -8,34 +8,21 @@ import AlertContext from '../../context/alert/alertContext'
 // --> this component will display the entries and enable switching to add an entry
 
 const entry = {
-	name: '',
-	time: '',
-	exercises: [
-		{
-			name: '',
-			sets: [
-				{
-					reps: 0,
-					weight: 0,
-					quality: '',
-				},
-			],
-			notes: '',
-		},
-	],
-	notes: '',
+	name: 'Food',
+	hour: '',
+	minute: '',
+	meal: '',
 	_id: '',
 }
 
-const NoblePathGym = ({ noblePath }) => {
+const NoblePathFood = ({ noblePath }) => {
 	const alertContext = useContext(AlertContext)
 	const { setAlert } = alertContext
 	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
-	const [pathState, pathDispatch] = usePath()
+	const [, pathDispatch] = usePath()
 
-	const { _id, entries, name } = noblePath
-	console.log(noblePath, 'noblepath')
-	console.log(entries, 'sessions')
+	const { _id, entries } = noblePath
+	console.log(noblePath, 'noblepathFood')
 
 	const [entryState, setEntry] = useState(entry)
 
@@ -62,22 +49,10 @@ const NoblePathGym = ({ noblePath }) => {
 			setReadyForUpdateState(false)
 			setEntry({
 				...entryState,
-				name: '',
-				time: '',
-				exercises: [
-					{
-						name: '',
-						sets: [
-							{
-								reps: 0,
-								weight: 0,
-								quality: '',
-							},
-						],
-						notes: '',
-					},
-				],
-				notes: '',
+				name: 'Food',
+				hour: '',
+				minute: '',
+				meal: '',
 				_id: '',
 			})
 		}
@@ -93,19 +68,7 @@ const NoblePathGym = ({ noblePath }) => {
 		setAlert('Cleared', 'light')
 	}
 
-	let exercises = entries[0].exercises[0].sets.map((el) => <p>{el.reps}</p>)
-
-	// let entriesArr =
-	// 	entries.length > 0
-	// 		? entries.map((entry) => (
-	// 				<tr style={{ fontSize: '1rem' }} key={entry._id}>
-	// 					<td>{entry.time}</td>
-	// 					<td>{entry.notes}</td>
-	// 					<td>{exercises}</td>
-	// 					<td>{new Date(entry.date).toDateString()}</td>
-	// 				</tr>
-	// 		  ))
-	// 		: null
+	const entriesArr = entries && entries.map((entry) => <td>{entry.hour}</td>)
 
 	return (
 		<div>
@@ -114,7 +77,7 @@ const NoblePathGym = ({ noblePath }) => {
 					<div className='card medium grey darken-2 hoverable'>
 						<div className='card-content white-text'>
 							<span className='card-title activator'>
-								{name}
+								<h5>Food Record</h5>
 								<i className='material-icons right'>more_vert</i>
 							</span>
 							<div className='row'>
@@ -179,20 +142,20 @@ const NoblePathGym = ({ noblePath }) => {
 								<thead>
 									<tr>
 										<th>
-											<p>Time</p>
+											<p>Time Eaten</p>
 										</th>
 										<th>
-											<p>Notes</p>
+											<p>Meal</p>
 										</th>
 										<th>
 											<p>Sets</p>
 										</th>
 										<th>
-											<p>Date</p>
+											<p>Entry Log Date</p>
 										</th>
 									</tr>
 								</thead>
-								{/* <tbody>{entries && entriesArr}</tbody> */}
+								<tbody>{entries && entriesArr}</tbody>
 							</table>
 						</div>
 					</div>
@@ -202,8 +165,8 @@ const NoblePathGym = ({ noblePath }) => {
 	)
 }
 
-NoblePathGym.propTypes = {
+NoblePathFood.propTypes = {
 	noblePath: PropTypes.object,
 }
 
-export default NoblePathGym
+export default NoblePathFood
