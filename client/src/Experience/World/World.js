@@ -1,6 +1,6 @@
 import Experience from '../Experience.js'
 import Environment from './Environment.js'
-import Greyfield from './TheConstruct.js'
+import TheConstruct from './TheConstruct.js'
 
 export default class World {
 	constructor() {
@@ -13,14 +13,14 @@ export default class World {
 		// Wait for resources
 		this.resources.on('ready', () => {
 			// Setup
-			this.greyfield = new Greyfield()
+			this.theConstruct = new TheConstruct()
 			this.environment = new Environment()
 		})
 	}
 
 	update() {
-		if (this.greyfield) {
-			this.greyfield.update()
+		if (this.theConstruct) {
+			this.theConstruct.update()
 		}
 	}
 

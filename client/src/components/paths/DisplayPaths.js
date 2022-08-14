@@ -36,9 +36,9 @@ const DisplayPaths = () => {
 	return (
 		<Fragment>
 			{displayPaths}
-			{displayNoblePathGym}
-			{displayNoblePathWake}
-			{displayNoblePathFood}
+			{noblePathGym.length > 0 && displayNoblePathGym}
+			{noblePathWake.length > 0 && displayNoblePathWake}
+			{noblePathFood.length > 0 && displayNoblePathFood}
 		</Fragment>
 	)
 }

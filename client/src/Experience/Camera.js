@@ -20,13 +20,20 @@ export default class Camera {
 			1,
 			2000
 		)
-		this.instance.position.set(25, 10, 25)
+		this.instance.position.set(
+			2.092443436151184,
+			0.5281878242773568,
+			5.03568986118073
+		)
 		this.scene.add(this.instance)
 	}
 
 	setControls() {
 		this.controls = new OrbitControls(this.instance, this.canvas)
 		this.controls.enableDamping = true
+		this.controls.autoRotate = true
+		this.controls.autoRotateSpeed = 0.35
+		this.controls.enabled = false
 	}
 
 	resize() {
@@ -36,5 +43,7 @@ export default class Camera {
 
 	update() {
 		this.controls.update()
+		// this.instance.rotation.y += 1
+		// console.log(this.instance.position)
 	}
 }

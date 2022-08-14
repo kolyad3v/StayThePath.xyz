@@ -11,4 +11,9 @@ export default [
 			'static/textures/environmentMap/nz.jpg',
 		],
 	},
+	{
+		name: 'mountain',
+		type: 'gltfModel',
+		path: 'static/models/mountain.glb',
+	},
 ]

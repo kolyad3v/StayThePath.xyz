@@ -1,12 +1,14 @@
 import * as THREE from 'three'
 import Experience from '../Experience'
+// import Box from '../Utils/Box'
 
-export default class Greyfield {
+export default class TheConstruct {
 	constructor() {
 		console.log('TheConstruct model instantiated!')
 		this.experience = new Experience()
 		this.scene = this.experience.scene
 		this.resources = this.experience.resources
+		this.resource = this.resources.items.mountain
 		this.time = this.experience.time
 		this.camera = this.experience.camera
 
@@ -20,7 +22,7 @@ export default class Greyfield {
 		}
 		// Methods
 
-		this.setTempTerrain()
+		// this.setTempTerrain()
 		this.setModel()
 	}
 
@@ -40,12 +42,15 @@ export default class Greyfield {
 	}
 
 	setModel() {
-		// this.model = this.resource.scene
+		this.model = this.resource.scene
+		console.log(this.model)
 
 		// // this.model.children[1].material = this.bakedMaterial
-		// this.scene.add(this.model)
+		this.scene.add(this.model)
 
 		/// add portal material to portals of scene
+
+		// this.box = new Box()
 
 		if (this.debug.active) {
 			this.debugFolder.addColor(this.debugObject, 'floorColor').onChange(() => {
@@ -55,6 +60,6 @@ export default class Greyfield {
 	}
 
 	update() {
-		// this.testCharacter.animate()
+		// this.model.rotation.y = this.time.elapsed * 0.00001
 	}
 }

@@ -8,7 +8,7 @@ export default class Environment {
 		this.scene = this.experience.scene
 		this.resources = this.experience.resources
 		this.instance = this.experience.renderer.instance
-		this.instance.setClearColor('#e9efe9')
+		this.instance.setClearColor('#000')
 
 		// Debug
 		this.debug = this.experience.debug
@@ -17,12 +17,12 @@ export default class Environment {
 			this.debugFolder = this.debug.ui.addFolder('environment')
 		}
 		this.debugObject = {
-			bgColor: '#e9efe9',
+			bgColor: '#ffffff',
 		}
 		// this.setEnvironmentMap()
 		// this.setDirectionLight()
 		// this.setHemisphereLight()
-		this.setAmbientLight()
+		// this.setAmbientLight()
 		this.setDebug()
 	}
 
