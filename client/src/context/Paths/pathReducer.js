@@ -16,6 +16,10 @@ import {
 	GET_NOBLE_PATH_GYM,
 	GET_NOBLE_PATH_FOOD,
 	GET_NOBLE_PATH_JOURNAL,
+	DELETE_NOBLE_PATH_WAKE,
+	DELETE_NOBLE_PATH_GYM,
+	DELETE_NOBLE_PATH_FOOD,
+	DELETE_NOBLE_PATH_JOURNAL,
 	HIDE_PATHS,
 	SET_CURRENT,
 	CLEAR_CURRENT,
@@ -128,6 +132,34 @@ export default (state, action) => {
 				...state,
 				noblePathJournal: state.noblePathJournal.map((path) =>
 					path._id === action.payload._id ? action.payload : path
+				),
+			}
+		case DELETE_NOBLE_PATH_WAKE:
+			return {
+				...state,
+				noblePathWake: state.noblePathWake.filter(
+					(path) => path._id !== action.payload
+				),
+			}
+		case DELETE_NOBLE_PATH_GYM:
+			return {
+				...state,
+				noblePathGym: state.noblePathGym.filter(
+					(path) => path._id !== action.payload
+				),
+			}
+		case DELETE_NOBLE_PATH_FOOD:
+			return {
+				...state,
+				noblePathFood: state.noblePathFood.filter(
+					(path) => path._id !== action.payload
+				),
+			}
+		case DELETE_NOBLE_PATH_JOURNAL:
+			return {
+				...state,
+				noblePathJournal: state.noblePathJournal.filter(
+					(path) => path._id !== action.payload
 				),
 			}
 		case SET_CURRENT:

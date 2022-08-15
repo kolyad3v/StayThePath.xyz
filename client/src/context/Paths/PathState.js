@@ -20,6 +20,10 @@ import {
 	UPDATE_NOBLE_PATH_GYM,
 	UPDATE_NOBLE_PATH_FOOD,
 	UPDATE_NOBLE_PATH_JOURNAL,
+	DELETE_NOBLE_PATH_WAKE,
+	DELETE_NOBLE_PATH_GYM,
+	DELETE_NOBLE_PATH_FOOD,
+	DELETE_NOBLE_PATH_JOURNAL,
 	PATH_ERROR,
 	SET_CURRENT,
 	UPDATE_PATH,
@@ -107,24 +111,24 @@ export const addNoblePath = async (dispatch, path) => {
 
 		switch (path.name) {
 			case 'Gym':
-				let res = await axios.post(`/api/paths/noblePath${path.name}`)
+				let res = await axios.post(`/api/paths/noblePath${path.name}`, path)
 				console.log(res.data)
 				dispatch({ type: ADD_NOBLEPATH_GYM, payload: res.data })
 				break
 			case 'Wake':
-				let resWake = await axios.post(`/api/paths/noblePath${path.name}`)
+				let resWake = await axios.post(`/api/paths/noblePath${path.name}`, path)
 				console.log(resWake.data)
 				dispatch({ type: ADD_NOBLEPATH_WAKE, payload: resWake.data })
 				break
 
 			case 'Food':
-				let resFood = await axios.post(`/api/noblePath${path.name}`)
+				let resFood = await axios.post(`/api/noblePath${path.name}`, path)
 				console.log(resFood.data)
 				dispatch({ type: ADD_NOBLEPATH_FOOD, payload: resFood.data })
 				break
 
 			case 'Journal':
-				let resJournal = await axios.post(`/api/${path.name}`)
+				let resJournal = await axios.post(`/api/${path.name}`, path)
 				console.log(resJournal.data)
 				dispatch({ type: ADD_NOBLEPATH_JOURNAL, payload: resJournal.data })
 				break
@@ -178,6 +182,7 @@ export const getNoblePaths = async (dispatch, noblePathName) => {
 		dispatch({ type: PATH_ERROR, payload: err.response })
 	}
 }
+
 // POST NOBLE PATH WAKE ENTRY
 export const noblePathEntry = async (dispatch, path) => {
 	try {
@@ -225,6 +230,52 @@ export const noblePathEntry = async (dispatch, path) => {
 				)
 				console.log(resJournal.data)
 				dispatch({ type: UPDATE_NOBLE_PATH_JOURNAL, payload: resJournal.data })
+				break
+
+			default:
+				break
+		}
+	} catch (error) {
+		dispatch({
+			type: PATH_ERROR,
+			payload: error.response,
+		})
+	}
+}
+
+// DELETE NOBLE PATH
+export const deleteNoblePath = async (dispatch, _id, name) => {
+	try {
+		// console.log(path)
+		// const res = await axios.post(
+		// 	`/api/paths/noblePath${path.name}Entry/${path._id}`,
+		// 	path
+		// )
+		// dispatch({
+		// 	type: UPDATE_NOBLE_PATH,
+		// 	payload: res.data,
+		// })
+
+		switch (name) {
+			case 'Gym':
+				let res = await axios.delete(`/api/paths/noblePath${name}/${_id}`)
+
+				dispatch({ type: DELETE_NOBLE_PATH_GYM, payload: _id })
+				break
+			case 'Wake':
+				let resWake = await axios.delete(`/api/paths/noblePath${name}/${_id}`)
+				dispatch({ type: DELETE_NOBLE_PATH_WAKE, payload: _id })
+				break
+			case 'Food':
+				let resFood = await axios.delete(`/api/noblePath${name}/${_id}`)
+				console.log(resFood.data)
+				dispatch({ type: DELETE_NOBLE_PATH_FOOD, payload: _id })
+
+				break
+			case 'Journal':
+				let resJournal = await axios.delete(`/api/${name}/${_id}`)
+				console.log(resJournal.data)
+				dispatch({ type: DELETE_NOBLE_PATH_JOURNAL, payload: _id })
 				break
 
 			default:

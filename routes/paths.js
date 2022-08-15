@@ -49,9 +49,10 @@ router.post('/', auth, async (req, res) => {
 
 router.post('/noblePathWake', auth, async (req, res) => {
 	const { name } = req.body
+	const { id: ronin } = req.ronin
 
 	try {
-		let noblePathWake = await NoblePathWake.findOne({ name })
+		let noblePathWake = await NoblePathWake.findOne({ ronin })
 		if (noblePathWake) {
 			return res.status(400).json({
 				msg: 'Wake Path Already Initialised',
@@ -115,6 +116,28 @@ router.post('/noblePathWakeEntry/:id', auth, async (req, res) => {
 	}
 })
 
+// @route       DELETE api/paths
+// @desc        Delete noble path WAKE
+// @access      private
+router.delete('/noblePathWake/:id', auth, async (req, res) => {
+	try {
+		let pathToDelete = await NoblePathWake.findById(req.params.id)
+		if (!pathToDelete) return res.status(404).json({ msg: 'Path not found' })
+
+		// make sure Ronin can only edit their own items
+		if (pathToDelete.ronin.toString() !== req.ronin.id) {
+			return res.status(401).json({ msg: 'not authorised' })
+		}
+
+		await NoblePathWake.findByIdAndRemove(req.params.id)
+
+		res.json({ msg: 'item deleted' })
+	} catch (err) {
+		console.error(error.message)
+		res.status(500).send('Server Error ')
+	}
+})
+
 // NOBLE PATH GYM --->
 
 // @route       POST api/path/noblePathGym
@@ -123,9 +146,10 @@ router.post('/noblePathWakeEntry/:id', auth, async (req, res) => {
 
 router.post('/noblePathGym', auth, async (req, res) => {
 	const { name } = req.body
+	const { id: ronin } = req.ronin
 
 	try {
-		let noblePath = await NoblePathGym.findOne({ name })
+		let noblePath = await NoblePathGym.findOne({ ronin })
 		if (noblePath) {
 			return res.status(400).json({
 				msg: 'Gym Path Already Initialised',
@@ -145,8 +169,8 @@ router.post('/noblePathGym', auth, async (req, res) => {
 	}
 })
 
-// @route		GET a WAKE NOBLE PATH
-// @desc		get noble wake path if exists
+// @route		GET a GYM NOBLE PATH
+// @desc		get noble GYM path if exists
 // @access		private
 
 router.get('/noblePathGym', auth, async (req, res) => {
@@ -185,6 +209,28 @@ router.post('/noblePathGymEntry/:id', auth, async (req, res) => {
 	} catch (err) {
 		console.error(err)
 		res.status(500).send('entry addition failed')
+	}
+})
+
+// @route       DELETE api/paths
+// @desc        Delete noble path gym
+// @access      private
+router.delete('/noblePathGym/:id', auth, async (req, res) => {
+	try {
+		let pathToDelete = await NoblePathGym.findById(req.params.id)
+		if (!pathToDelete) return res.status(404).json({ msg: 'Path not found' })
+
+		// make sure Ronin can only edit their own items
+		if (pathToDelete.ronin.toString() !== req.ronin.id) {
+			return res.status(401).json({ msg: 'not authorised' })
+		}
+
+		await NoblePathGym.findByIdAndRemove(req.params.id)
+
+		res.json({ msg: 'item deleted' })
+	} catch (err) {
+		console.error(error.message)
+		res.status(500).send('Server Error ')
 	}
 })
 

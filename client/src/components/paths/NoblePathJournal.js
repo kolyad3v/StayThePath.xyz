@@ -1,7 +1,11 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import { usePath, noblePathEntry } from '../../context/Paths/PathState'
+import {
+	usePath,
+	noblePathEntry,
+	deleteNoblePath,
+} from '../../context/Paths/PathState'
 
 import AlertContext from '../../context/alert/alertContext'
 
@@ -66,6 +70,12 @@ const NoblePathWake = ({ noblePath }) => {
 	const onClear = () => {
 		setReadyForUpdateState(false)
 		setAlert('Cleared', 'light')
+	}
+
+	const onDelete = () => {
+		if (window.confirm('are you sure? Will lose all journal data')) {
+			deleteNoblePath(pathDispatch, _id, name)
+		}
 	}
 
 	let entriesArr =

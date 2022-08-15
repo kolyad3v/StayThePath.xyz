@@ -48,6 +48,8 @@ export default class TheConstruct {
 		// // this.model.children[1].material = this.bakedMaterial
 		this.scene.add(this.model)
 
+		this.floorMesh = this.model.children.find((el) => el.name === 'Floor')
+		console.log(this.floor)
 		/// add portal material to portals of scene
 
 		// this.box = new Box()

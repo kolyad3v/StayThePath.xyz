@@ -1,7 +1,11 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import { usePath, noblePathEntry } from '../../context/Paths/PathState'
+import {
+	usePath,
+	noblePathEntry,
+	deleteNoblePath,
+} from '../../context/Paths/PathState'
 
 import AlertContext from '../../context/alert/alertContext'
 
@@ -18,8 +22,8 @@ const entry = {
 const NoblePathWake = ({ noblePath }) => {
 	const alertContext = useContext(AlertContext)
 	const { setAlert } = alertContext
-	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
-	const [pathState, pathDispatch] = usePath()
+	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly. Actually we can use comma seperation to omit pathState variable and still destructure correctly.
+	const [, pathDispatch] = usePath()
 
 	const { _id, entries } = noblePath
 
@@ -65,6 +69,12 @@ const NoblePathWake = ({ noblePath }) => {
 	const onClear = () => {
 		setReadyForUpdateState(false)
 		setAlert('Cleared', 'light')
+	}
+
+	const onDelete = () => {
+		if (window.confirm('are you sure cannot be undone you cunt')) {
+			deleteNoblePath(pathDispatch, _id, name)
+		}
 	}
 
 	let entriesArr =
@@ -114,6 +124,17 @@ const NoblePathWake = ({ noblePath }) => {
 									)}
 								</div>
 								<div className='col s1'></div>
+
+								<div className='col s3'>
+									{readyForUpdateState && (
+										<button
+											className='waves-effect waves-teal red btn-flat black-text'
+											onClick={onDelete}
+										>
+											X
+										</button>
+									)}
+								</div>
 							</div>
 
 							<div className='row'>

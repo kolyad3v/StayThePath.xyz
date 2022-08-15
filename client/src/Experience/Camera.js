@@ -32,7 +32,7 @@ export default class Camera {
 		this.controls = new OrbitControls(this.instance, this.canvas)
 		this.controls.enableDamping = true
 		this.controls.autoRotate = true
-		this.controls.autoRotateSpeed = 0.35
+		this.controls.autoRotateSpeed = 0.15
 		this.controls.enabled = false
 	}
 
