@@ -14,7 +14,7 @@ app.use('/api/ronin', require('./routes/ronin'))
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/paths', require('./routes/paths'))
 app.use('/api/noblePathFood', require('./routes/noblePathFood'))
-app.use('/api/Journal', require('./routes/Journal'))
+app.use('/api/Journal', require('./routes/journal'))
 
 // serve static assets in production
 if (process.env.NODE_ENV === 'production') {

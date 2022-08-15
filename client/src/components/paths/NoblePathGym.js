@@ -34,7 +34,6 @@ const entry = {
 const NoblePathGym = ({ noblePath }) => {
 	const alertContext = useContext(AlertContext)
 	const { setAlert } = alertContext
-	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
 	const [, pathDispatch] = usePath()
 
 	const { _id, entries, name } = noblePath
@@ -44,14 +43,6 @@ const NoblePathGym = ({ noblePath }) => {
 	const [entryState, setEntry] = useState(entry)
 
 	const [readyForUpdateState, setReadyForUpdateState] = useState(false)
-
-	// useEffect(() => {
-	// 	if (current !== null) {
-	// 		setPath(current)
-	// 	} else {
-	// 		setPath(initialPath)
-	// 	}
-	// }, [current])
 
 	const onUpdate = () => {
 		if (!readyForUpdateState) {
