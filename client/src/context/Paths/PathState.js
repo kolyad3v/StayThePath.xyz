@@ -149,24 +149,24 @@ export const getNoblePaths = async (dispatch, noblePathName) => {
 		switch (noblePathName) {
 			case 'Gym':
 				let res = await axios.get(`/api/paths/noblePath${noblePathName}`)
-				console.log(res.data)
+
 				dispatch({ type: GET_NOBLE_PATH_GYM, payload: res.data })
 				break
 			case 'Wake':
 				let resWake = await axios.get(`/api/paths/noblePath${noblePathName}`)
-				console.log(resWake.data)
+
 				dispatch({ type: GET_NOBLE_PATH_WAKE, payload: resWake.data })
 				break
 
 			case 'Food':
 				let resFood = await axios.get(`/api/noblePath${noblePathName}`)
-				console.log(resFood.data)
+
 				dispatch({ type: GET_NOBLE_PATH_FOOD, payload: resFood.data })
 				break
 
 			case 'Journal':
 				let resJournal = await axios.get(`/api/${noblePathName}`)
-				console.log(resJournal.data)
+
 				dispatch({ type: GET_NOBLE_PATH_JOURNAL, payload: resJournal.data })
 				break
 

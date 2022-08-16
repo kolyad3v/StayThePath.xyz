@@ -101,7 +101,7 @@ router.post('/noblePathWakeEntry/:id', auth, async (req, res) => {
 		console.log(req.body.hour)
 		const newEntry = {
 			hour: req.body.hour,
-			minute: req.body.minute,
+
 			notes: req.body.notes,
 		}
 

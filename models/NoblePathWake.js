@@ -15,11 +15,9 @@ const NoblePathWakeShema = mongoose.Schema({
 				type: mongoose.Schema.Types.ObjectId,
 			},
 			hour: {
-				type: Number,
+				type: String,
 			},
-			minute: {
-				type: Number,
-			},
+
 			notes: {
 				type: String,
 			},

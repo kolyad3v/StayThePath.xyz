@@ -81,9 +81,7 @@ const NoblePathWake = ({ noblePath }) => {
 		entries.length > 0
 			? entries.map((entry) => (
 					<tr style={{ fontSize: '1rem' }} key={entry._id}>
-						<td>
-							{entry.hour}:{entry.minute}
-						</td>
+						<td>{entry.hour}</td>
 						<td>{entry.notes}</td>
 						<td>{new Date(entry.date).toDateString()}</td>
 					</tr>
@@ -139,23 +137,13 @@ const NoblePathWake = ({ noblePath }) => {
 
 							<div className='row'>
 								{readyForUpdateState ? (
-									<div className='input-field col s2 '>
+									<div className='input-field col s4 '>
 										<input
 											name='hour'
 											onChange={onChange}
 											placeholder='Hour'
 											className='white-text'
-										/>
-									</div>
-								) : null}
-								{readyForUpdateState ? (
-									<div className='input-field col s2'>
-										<input
-											name='minute'
-											onChange={onChange}
-											placeholder='Min'
-											required
-											className='white-text'
+											type={'time'}
 										/>
 									</div>
 								) : null}

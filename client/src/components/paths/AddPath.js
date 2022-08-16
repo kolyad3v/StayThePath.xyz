@@ -3,13 +3,13 @@ import React, { useState } from 'react'
 import { addPath, usePath } from '../../context/Paths/PathState'
 const initialPath = {
 	name: '',
-	value: '',
+	value: 0,
 }
 
 const AddPath = () => {
 	const [pathState, pathDispatch] = usePath()
 
-	const { name, value } = pathState
+	const { name } = pathState
 
 	const [path, setPath] = useState(initialPath)
 
@@ -26,7 +26,7 @@ const AddPath = () => {
 		addPath(pathDispatch, path)
 		setPath({
 			name: '',
-			value: '',
+			value: 0,
 		})
 	}
 
@@ -48,7 +48,7 @@ const AddPath = () => {
 							className='black-text'
 						/>
 					</div>
-					<div className='row black-text'>
+					{/* <div className='row black-text'>
 						<input
 							type='text'
 							name='value'
@@ -57,7 +57,7 @@ const AddPath = () => {
 							onChange={onChange}
 							className='black-text'
 						/>
-					</div>
+					</div> */}
 				</div>
 				<div className='row'>
 					<input
