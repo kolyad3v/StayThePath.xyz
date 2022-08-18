@@ -72,19 +72,10 @@ ul {
 img {
 	width: 100%;
 }
-/* Home Screen Game Play */
+/* kolya edits */
 
-.stats {
-	background: #000;
-	width: 33vw;
-	height: 10vh;
-	position: fixed;
-	left: 5vw;
-	top: 5vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
+.card-gym {
+	width: 200%;
 }
 
 /* Utilities */

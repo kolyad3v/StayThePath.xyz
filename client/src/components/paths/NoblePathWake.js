@@ -92,8 +92,8 @@ const NoblePathWake = ({ noblePath }) => {
 		<div>
 			<div className='row'>
 				<div className='col s12 '>
-					<div className='card medium grey darken-2 hoverable'>
-						<div className='card-content white-text'>
+					<div className='card medium white darken-2 hoverable '>
+						<div className='card-content'>
 							<span className='card-title activator'>
 								{name} Time
 								<i className='material-icons right'>more_vert</i>
@@ -162,7 +162,7 @@ const NoblePathWake = ({ noblePath }) => {
 								</div>
 							</div>
 						</div>
-						<div className='card-reveal '>
+						<div className='card-reveal  '>
 							<span className='card-title grey-text text-darken-4'>
 								Entries<i className='material-icons right'>close</i>
 							</span>

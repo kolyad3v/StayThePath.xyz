@@ -16,7 +16,11 @@ const NoblePathGymSchema = mongoose.Schema({
 				type: mongoose.Schema.Types.ObjectId,
 			},
 			time: {
-				type: Number,
+				type: String,
+			},
+			date: {
+				type: Date,
+				default: Date.now,
 			},
 			exercises: [
 				{
@@ -28,11 +32,11 @@ const NoblePathGymSchema = mongoose.Schema({
 					sets: [
 						{
 							reps: {
-								type: Number,
+								type: String,
 								required: true,
 							},
 							weight: {
-								type: Number,
+								type: String,
 								required: true,
 							},
 							quality: {

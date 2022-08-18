@@ -39,6 +39,7 @@ const DisplayPaths = () => {
 			{noblePathGym.length > 0 && displayNoblePathGym}
 			{noblePathWake.length > 0 && displayNoblePathWake}
 			{noblePathFood.length > 0 && displayNoblePathFood}
+			{/* <div className='frostContainer'></div> */}
 		</Fragment>
 	)
 }
