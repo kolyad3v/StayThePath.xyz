@@ -45,8 +45,6 @@ const NoblePathGym = ({ noblePath }) => {
 	const [setsEntryState, setSetsEntry] = useState(setsEntry)
 	const { reps, weight, quality } = setsEntryState
 
-	// DISPLAY DATA STATES
-	const [displayExState, setDisplayExState] = useState([])
 	// VIEW STATES
 	const [readyForUpdateState, setReadyForUpdateState] = useState(false)
 	const [addExerciseState, setAddExerciseState] = useState(false)
@@ -165,12 +163,12 @@ const NoblePathGym = ({ noblePath }) => {
 				<td style={{ width: '400px' }}>
 					{exerciseDataArray[index].map((exercise, index) => (
 						<>
-							<p style={{ fontWeight: 'bold', width: '200px' }} key={index}>
+							<p style={{ fontWeight: 'bold', width: '200px' }} key={Math.random()}>
 								{typeof exercise === 'string' && exercise}
 							</p>
 							{typeof exercise === 'object' &&
 								exercise.map((set, index) => (
-									<p style={{ width: 'auto' }} key={index}>
+									<p style={{ width: 'auto' }} key={Math.random()}>
 										Set {index + 1} <br />
 										reps: {set.reps} | Weight: {set.weight} | Quality: {set.quality}
 									</p>
@@ -183,7 +181,7 @@ const NoblePathGym = ({ noblePath }) => {
 		))
 
 	return (
-		<div className='card card-gym medium white darken-2 hoverable'>
+		<div className='card medium white darken-2 hoverable '>
 			<div className='card-content black-text'>
 				<span className='card-title activator'>
 					{name}

@@ -9,7 +9,7 @@ const router = express.Router()
 // @desc        add a noble path Journal to the user interface. Not the entries route.
 // @access      private
 
-router.post('/noblePathJournal', auth, async (req, res) => {
+router.post('/', auth, async (req, res) => {
 	const { id: ronin } = req.ronin
 
 	try {
@@ -36,12 +36,10 @@ router.post('/noblePathJournal', auth, async (req, res) => {
 // @desc		get noble Journal path if exists
 // @access		private
 
-router.get('/noblePathJournal', auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
 	try {
 		const allNoblePathJournal = await NoblePathJournal.find({
 			ronin: req.ronin.id,
-		}).sort({
-			date: -1,
 		})
 		res.json(allNoblePathJournal)
 	} catch (err) {
@@ -76,7 +74,7 @@ router.delete('/:id', auth, async (req, res) => {
 // @desc		add Journal time on noblePathJournal
 // @access		private
 
-router.post('/JournalEntry/:id', auth, async (req, res) => {
+router.post('/:id', auth, async (req, res) => {
 	console.log(req.params)
 	try {
 		const noblePath = await NoblePathJournal.findById(req.params.id)

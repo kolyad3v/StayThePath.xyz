@@ -12,11 +12,8 @@ const NoblePathFoodSchema = mongoose.Schema({
 			ronin: {
 				type: mongoose.Schema.Types.ObjectId,
 			},
-			hour: {
-				type: Number,
-			},
-			minute: {
-				type: Number,
+			time: {
+				type: String,
 			},
 			meal: {
 				type: String,

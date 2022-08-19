@@ -127,7 +127,7 @@ export const addNoblePath = async (dispatch, path) => {
 				dispatch({ type: ADD_NOBLEPATH_FOOD, payload: resFood.data })
 				break
 
-			case 'Journal':
+			case 'journal':
 				let resJournal = await axios.post(`/api/${path.name}`, path)
 				console.log(resJournal.data)
 				dispatch({ type: ADD_NOBLEPATH_JOURNAL, payload: resJournal.data })
@@ -164,9 +164,9 @@ export const getNoblePaths = async (dispatch, noblePathName) => {
 				dispatch({ type: GET_NOBLE_PATH_FOOD, payload: resFood.data })
 				break
 
-			case 'Journal':
+			case 'journal':
 				let resJournal = await axios.get(`/api/${noblePathName}`)
-
+				console.log(resJournal)
 				dispatch({ type: GET_NOBLE_PATH_JOURNAL, payload: resJournal.data })
 				break
 
@@ -223,11 +223,8 @@ export const noblePathEntry = async (dispatch, path) => {
 				dispatch({ type: UPDATE_NOBLE_PATH_FOOD, payload: resFood.data })
 				break
 
-			case 'Journal':
-				let resJournal = await axios.post(
-					`/api/${path.name}/JournalEntry/${path._id}`,
-					path
-				)
+			case 'journal':
+				let resJournal = await axios.post(`/api/${path.name}/${path._id}`, path)
 				console.log(resJournal.data)
 				dispatch({ type: UPDATE_NOBLE_PATH_JOURNAL, payload: resJournal.data })
 				break

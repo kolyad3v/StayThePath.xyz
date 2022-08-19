@@ -35,10 +35,10 @@ const DisplayPaths = () => {
 	console.log(noblePathFood)
 	return (
 		<Fragment>
-			{displayPaths}
 			{noblePathGym.length > 0 && displayNoblePathGym}
 			{noblePathWake.length > 0 && displayNoblePathWake}
 			{noblePathFood.length > 0 && displayNoblePathFood}
+			{displayPaths}
 			{/* <div className='frostContainer'></div> */}
 		</Fragment>
 	)

@@ -13,8 +13,7 @@ import AlertContext from '../../context/alert/alertContext'
 
 const entry = {
 	name: 'Food',
-	hour: '',
-	minute: '',
+	time: '',
 	meal: '',
 	_id: '',
 }
@@ -55,8 +54,7 @@ const NoblePathFood = ({ noblePath }) => {
 			setEntry({
 				...entryState,
 				name: 'Food',
-				hour: '',
-				minute: '',
+				time: '',
 				meal: '',
 				_id: '',
 			})
@@ -83,109 +81,102 @@ const NoblePathFood = ({ noblePath }) => {
 		}
 	}
 
-	const entriesArr = entries && entries.map((entry) => <td>{entry.hour}</td>)
+	const entriesArr =
+		entries &&
+		entries.map((entry) => (
+			<tr key={entry._id}>
+				<td>{entry.time}</td>
+				<td>{entry.meal}</td>
+				<td>{new Date(entry.date).toDateString()}</td>
+			</tr>
+		))
 
 	return (
-		<div>
-			<div className='row'>
-				<div className='col s12 '>
-					<div className='card medium grey darken-2 hoverable'>
-						<div className='card-content white-text'>
-							<span className='card-title activator'>
-								<h5>Food Record</h5>
-								<i className='material-icons right'>more_vert</i>
-							</span>
-							<div className='row'>
-								<div className='col s1'></div>
+		<div className='card medium white darken-2 hoverable'>
+			<div className='card-content black-text'>
+				<span className='card-title activator'>
+					<h5>Food Record</h5>
+					<i className='material-icons right'>more_vert</i>
+				</span>
+				<div className='row'>
+					<div className='col s1'></div>
 
-								<div className='col s3'>
-									<button
-										className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
-										onClick={onUpdate}
-									>
-										{readyForUpdateState ? 'Save' : 'Update'}
-									</button>
-								</div>
-								<div className='col s1'></div>
+					<div className='col s3'>
+						<button
+							className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
+							onClick={onUpdate}
+						>
+							{readyForUpdateState ? 'Save' : 'Update'}
+						</button>
+					</div>
+					<div className='col s1'></div>
 
-								<div className='col s3'>
-									{readyForUpdateState && (
-										<button
-											className='waves-effect waves-teal grey btn-flat black-text'
-											onClick={onClear}
-										>
-											clear
-										</button>
-									)}
-								</div>
-								<div className='col s1'></div>
+					<div className='col s3'>
+						{readyForUpdateState && (
+							<button
+								className='waves-effect waves-teal grey btn-flat black-text'
+								onClick={onClear}
+							>
+								clear
+							</button>
+						)}
+					</div>
+					<div className='col s1'></div>
 
-								<div className='col s3'>
-									{readyForUpdateState && (
-										<button
-											className='waves-effect waves-teal red btn-flat black-text'
-											onClick={onDelete}
-										>
-											X
-										</button>
-									)}
-								</div>
-							</div>
-
-							{readyForUpdateState && (
-								<div className='input-field col s12 '>
-									<input name='hour' onChange={onChange} className='white-text' />
-								</div>
-							)}
-
-							{readyForUpdateState ? (
-								<div className='input-field col s12'>
-									<input
-										name='minute'
-										onChange={onChange}
-										placeholder='Wake mins'
-										required
-										className='white-text'
-									/>{' '}
-								</div>
-							) : null}
-							{readyForUpdateState ? (
-								<div className='input-field col s12'>
-									<textarea
-										name='notes'
-										onChange={onChange}
-										placeholder='Easy/hard wake up, poor sleep, etc'
-										className='white-text materialize-textarea'
-									/>
-								</div>
-							) : null}
-						</div>
-						<div className='card-reveal '>
-							<span className='card-title grey-text text-darken-4'>
-								Entries<i className='material-icons right'>close</i>
-							</span>
-							<table className='highlight responsive-table'>
-								<thead>
-									<tr>
-										<th>
-											<p>Time Eaten</p>
-										</th>
-										<th>
-											<p>Meal</p>
-										</th>
-										<th>
-											<p>Sets</p>
-										</th>
-										<th>
-											<p>Entry Log Date</p>
-										</th>
-									</tr>
-								</thead>
-								<tbody>{entries && entriesArr}</tbody>
-							</table>
-						</div>
+					<div className='col s3'>
+						{readyForUpdateState && (
+							<button
+								className='waves-effect waves-teal red btn-flat black-text'
+								onClick={onDelete}
+							>
+								X
+							</button>
+						)}
 					</div>
 				</div>
+
+				{readyForUpdateState && (
+					<div className='input-field col s12 '>
+						<input
+							name='time'
+							onChange={onChange}
+							placeholder='Time of meal'
+							className='black-text'
+						/>
+					</div>
+				)}
+
+				{readyForUpdateState && (
+					<div className='input-field col s12'>
+						<textarea
+							name='meal'
+							onChange={onChange}
+							placeholder='Avocado on toast'
+							className='black-text materialize-textarea'
+						/>
+					</div>
+				)}
+			</div>
+			<div className='card-reveal '>
+				<span className='card-title grey-text text-darken-4'>
+					Entries<i className='material-icons right'>close</i>
+				</span>
+				<table className='highlight responsive-table'>
+					<thead>
+						<tr>
+							<th>
+								<p>Time Eaten</p>
+							</th>
+							<th>
+								<p>Meal</p>
+							</th>
+							<th>
+								<p>Entry Log Date</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>{entries && entriesArr}</tbody>
+				</table>
 			</div>
 		</div>
 	)

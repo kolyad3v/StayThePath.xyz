@@ -21,12 +21,13 @@ const Register = (props) => {
 	}, [error, isAuthenticated, props.history, setAlert, authDispatch])
 
 	const [ronin, setRonin] = useState({
+		name: '',
 		email: '',
 		password: '',
 		password2: '',
 	})
 
-	const { email, password, password2 } = ronin
+	const { name, email, password, password2 } = ronin
 
 	const onChange = (e) => {
 		setRonin({
@@ -43,6 +44,7 @@ const Register = (props) => {
 			setAlert('Paswords do not match', 'danger')
 		} else {
 			register(authDispatch, {
+				name,
 				email,
 				password,
 			})
@@ -58,6 +60,8 @@ const Register = (props) => {
 		<div className='form-container'>
 			<form onSubmit={onSubmit}>
 				<div className='form-group'>
+					<label htmlFor='name'> Name</label>
+					<input type='text' name='name' value={name} onChange={onChange} required />
 					<label htmlFor='email'> Email</label>
 					<input
 						type='email'

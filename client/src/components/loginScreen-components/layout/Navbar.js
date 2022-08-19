@@ -14,7 +14,14 @@ const Navbar = ({ title }) => {
 
 	const authLinks = (
 		<Fragment>
-			<li>Hello {ronin && ronin.email}</li>
+			<li>Hello {ronin && ronin.name ? ronin.name : ronin && ronin.email}</li>
+
+			<li>
+				<Link to='/'>Paths</Link>
+			</li>
+			<li>
+				<Link to='/Journal'>Journal</Link>
+			</li>
 			<li>
 				<a href='#!' onClick={onLogout}>
 					Logout

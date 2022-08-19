@@ -24,7 +24,7 @@ router.post(
 			return res.status(400).json({ errors: errors.array() })
 		}
 
-		const { email, password } = req.body
+		const { name, email, password } = req.body
 
 		try {
 			let ronin = await Ronin.findOne({ email })
@@ -33,6 +33,7 @@ router.post(
 			}
 
 			ronin = new Ronin({
+				name,
 				email,
 				password,
 			})

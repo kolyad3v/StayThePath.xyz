@@ -89,102 +89,96 @@ const NoblePathWake = ({ noblePath }) => {
 			: null
 
 	return (
-		<div>
-			<div className='row'>
-				<div className='col s12 '>
-					<div className='card medium white darken-2 hoverable '>
-						<div className='card-content'>
-							<span className='card-title activator'>
-								{name} Time
-								<i className='material-icons right'>more_vert</i>
-							</span>
-							<div className='row'>
-								<div className='col s1'></div>
+		<div className='card medium white darken-2 hoverable '>
+			<div className='card-content'>
+				<span className='card-title activator'>
+					{name} Time
+					<i className='material-icons right'>more_vert</i>
+				</span>
+				<div className='row'>
+					<div className='col s1'></div>
 
-								<div className='col s3'>
-									<button
-										className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
-										onClick={onUpdate}
-									>
-										{readyForUpdateState ? 'Save' : 'Update'}
-									</button>
-								</div>
-								<div className='col s1'></div>
+					<div className='col s3'>
+						<button
+							className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
+							onClick={onUpdate}
+						>
+							{readyForUpdateState ? 'Save' : 'Update'}
+						</button>
+					</div>
+					<div className='col s1'></div>
 
-								<div className='col s3'>
-									{readyForUpdateState && (
-										<button
-											className='waves-effect waves-teal grey btn-flat black-text'
-											onClick={onClear}
-										>
-											clear
-										</button>
-									)}
-								</div>
-								<div className='col s1'></div>
+					<div className='col s3'>
+						{readyForUpdateState && (
+							<button
+								className='waves-effect waves-teal grey btn-flat black-text'
+								onClick={onClear}
+							>
+								clear
+							</button>
+						)}
+					</div>
+					<div className='col s1'></div>
 
-								<div className='col s3'>
-									{readyForUpdateState && (
-										<button
-											className='waves-effect waves-teal red btn-flat black-text'
-											onClick={onDelete}
-										>
-											X
-										</button>
-									)}
-								</div>
-							</div>
-
-							<div className='row'>
-								{readyForUpdateState ? (
-									<div className='input-field col s4 '>
-										<input
-											name='hour'
-											onChange={onChange}
-											placeholder='Hour'
-											className='white-text'
-											type={'time'}
-										/>
-									</div>
-								) : null}
-
-								<div className='row'>
-									{readyForUpdateState ? (
-										<div className='input-field col s12'>
-											<textarea
-												name='notes'
-												onChange={onChange}
-												placeholder='Easy/hard wake up, poor sleep, etc'
-												className='white-text materialize-textarea'
-											/>
-										</div>
-									) : null}
-								</div>
-							</div>
-						</div>
-						<div className='card-reveal  '>
-							<span className='card-title grey-text text-darken-4'>
-								Entries<i className='material-icons right'>close</i>
-							</span>
-							<table className='highlight responsive-table'>
-								<thead>
-									<tr>
-										<th>
-											<h5>Wake Time</h5>
-										</th>
-										<th>
-											<h5>Notes</h5>
-										</th>
-										<th>
-											<h5>Date</h5>
-										</th>
-									</tr>
-								</thead>
-								<tbody>{entries && entriesArr}</tbody>
-							</table>
-						</div>
+					<div className='col s3'>
+						{readyForUpdateState && (
+							<button
+								className='waves-effect waves-teal red btn-flat black-text'
+								onClick={onDelete}
+							>
+								X
+							</button>
+						)}
 					</div>
 				</div>
+
+				<div className='row'>
+					{readyForUpdateState ? (
+						<div className='input-field col s4 '>
+							<input
+								name='hour'
+								onChange={onChange}
+								placeholder='Hour'
+								className='white-text'
+								type={'time'}
+							/>
+						</div>
+					) : null}
+
+					<div className='row'>
+						{readyForUpdateState ? (
+							<div className='input-field col s12'>
+								<textarea
+									name='notes'
+									onChange={onChange}
+									placeholder='Easy/hard wake up, poor sleep, etc'
+									className='white-text materialize-textarea'
+								/>
+							</div>
+						) : null}
+					</div>
+				</div>
+			</div>
+			<div className='card-reveal  '>
+				<span className='card-title grey-text text-darken-4'>
+					Entries<i className='material-icons right'>close</i>
+				</span>
+				<table className='highlight responsive-table'>
+					<thead>
+						<tr>
+							<th>
+								<h5>Wake Time</h5>
+							</th>
+							<th>
+								<h5>Notes</h5>
+							</th>
+							<th>
+								<h5>Date</h5>
+							</th>
+						</tr>
+					</thead>
+					<tbody>{entries && entriesArr}</tbody>
+				</table>
 			</div>
 		</div>
 	)

@@ -85,7 +85,7 @@ export default (state, action) => {
 		case GET_NOBLE_PATH_JOURNAL:
 			return {
 				...state,
-				journal: action.payload,
+				noblePathJournal: action.payload,
 				loading: false,
 			}
 		case DELETE_PATH:

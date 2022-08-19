@@ -80,10 +80,9 @@ router.post('/Entry/:id', auth, async (req, res) => {
 	console.log(req.params)
 	try {
 		const noblePath = await NoblePathFood.findById(req.params.id)
-		console.log(req.body.hour)
+
 		const newEntry = {
-			hour: req.body.hour,
-			minute: req.body.minute,
+			time: req.body.time,
 			meal: req.body.meal,
 		}
 
