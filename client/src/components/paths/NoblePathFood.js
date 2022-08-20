@@ -103,7 +103,7 @@ const NoblePathFood = ({ noblePath }) => {
 
 					<div className='col s3'>
 						<button
-							className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
+							className='waves-effect waves-white btn-flat black white-text pulse'
 							onClick={onUpdate}
 						>
 							{readyForUpdateState ? 'Save' : 'Update'}

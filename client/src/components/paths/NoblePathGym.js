@@ -192,7 +192,7 @@ const NoblePathGym = ({ noblePath }) => {
 
 					<div className='col s3'>
 						<button
-							className='waves-effect waves-white btn-flat blue-grey darken-4 white-text pulse'
+							className='waves-effect waves-white btn-flat black white-text pulse'
 							onClick={onUpdate}
 						>
 							{readyForUpdateState ? 'Save' : 'Update'}
