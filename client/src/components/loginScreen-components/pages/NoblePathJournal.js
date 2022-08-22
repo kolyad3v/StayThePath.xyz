@@ -109,13 +109,15 @@ const NoblePathJournal = () => {
 	return (
 		<div>
 			<button
-				className='waves-effect waves-teal green btn-flat black-text'
+				className='waves-effect black btn-flat white-text'
 				onClick={onActivate}
 			>
 				<i className='material-icons'>check</i>
 			</button>
-			<div className={`card medium grey darken-2 hoverable ${notActivated} `}>
-				<div className='card-content white-text'>
+			<div
+				className={`card medium white hoverable ${notActivated} text-center journal`}
+			>
+				<div className='card-content black-text'>
 					<span className='card-title activator'>
 						{capital}
 						<i className='material-icons right'>more_vert</i>
@@ -125,7 +127,7 @@ const NoblePathJournal = () => {
 
 						<div className='col s3'>
 							<button
-								className='waves-effect waves-white btn-flat green accent-2 black-text pulse'
+								className='waves-effect waves-white btn-flat black white-text pulse'
 								onClick={onUpdate}
 							>
 								{readyForUpdateState ? 'Save' : 'Update'}
@@ -163,7 +165,7 @@ const NoblePathJournal = () => {
 									name='subject'
 									onChange={onChange}
 									placeholder='Subject'
-									className='white-text'
+									className='black-text'
 								/>
 							</div>
 						) : null}
@@ -174,7 +176,7 @@ const NoblePathJournal = () => {
 									onChange={onChange}
 									placeholder='Category'
 									required
-									className='white-text'
+									className='black-text'
 								/>
 							</div>
 						) : null}
@@ -186,7 +188,7 @@ const NoblePathJournal = () => {
 										name='body'
 										onChange={onChange}
 										placeholder='Today I witnessed a miracle...'
-										className='white-text materialize-textarea'
+										className='black-text materialize-textarea'
 									/>
 								</div>
 							) : null}

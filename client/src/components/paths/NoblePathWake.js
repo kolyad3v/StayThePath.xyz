@@ -139,7 +139,7 @@ const NoblePathWake = ({ noblePath }) => {
 								name='hour'
 								onChange={onChange}
 								placeholder='Hour'
-								className='white-text'
+								className='black-text'
 								type={'time'}
 							/>
 						</div>
@@ -152,7 +152,7 @@ const NoblePathWake = ({ noblePath }) => {
 									name='notes'
 									onChange={onChange}
 									placeholder='Easy/hard wake up, poor sleep, etc'
-									className='white-text materialize-textarea'
+									className='black-text materialize-textarea'
 								/>
 							</div>
 						) : null}

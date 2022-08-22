@@ -20,7 +20,7 @@ import PrivateRoute from './components/routing/PrivateRoute'
 
 const App = () => {
 	// eslint-disable-next-line
-	const experience = new Experience(document.querySelector('canvas.webgl'))
+	// const experience = new Experience(document.querySelector('canvas.webgl'))
 
 	return (
 		<AuthState>

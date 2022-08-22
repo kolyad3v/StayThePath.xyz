@@ -92,7 +92,6 @@ const NoblePathGym = ({ noblePath }) => {
 			notes: '',
 		})
 	}
-	console.log(entryState)
 
 	// 	EXERCISE STATE MANIPULATION ----->>>
 	const onChangeExercise = (e) => {
@@ -107,7 +106,7 @@ const NoblePathGym = ({ noblePath }) => {
 	const setsOnChange = (e) => {
 		setSetsEntry({ ...setsEntryState, [e.target.name]: e.target.value })
 	}
-	console.log(setsEntryState, 'sets entry state')
+	// console.log(setsEntryState, 'sets entry state')
 
 	const submitSetToExerciseSets = () => {
 		let holdArray = exerciseEntryState
@@ -116,7 +115,7 @@ const NoblePathGym = ({ noblePath }) => {
 		setSetsEntry({ ...setsEntryState, reps: '', weight: '', quality: '' })
 	}
 
-	console.log(exerciseEntryState, 'exerciseEntryState')
+	// console.log(exerciseEntryState, 'exerciseEntryState')
 
 	// 	SETS STATE MANIPULATION <<<<-----
 
@@ -145,10 +144,7 @@ const NoblePathGym = ({ noblePath }) => {
 		console.log(session.exercises, 'forEach')
 		let exerciseSubDataArray = []
 		session.exercises.forEach((exercise) => {
-			exercise.name &&
-				exercise.notes &&
-				exercise.sets &&
-				exerciseSubDataArray.push(exercise.name, exercise.notes, exercise.sets)
+			exerciseSubDataArray.push(exercise.name, exercise.notes, exercise.sets)
 		})
 		exerciseDataArray.push(exerciseSubDataArray)
 	})
@@ -163,8 +159,8 @@ const NoblePathGym = ({ noblePath }) => {
 				<td style={{ width: '400px' }}>
 					{exerciseDataArray[index].map((exercise, index) => (
 						<>
-							<p style={{ fontWeight: 'bold', width: '200px' }} key={Math.random()}>
-								{typeof exercise === 'string' && exercise}
+							<p style={{ width: '200px' }} key={Math.random()}>
+								<strong>{typeof exercise === 'string' && exercise}</strong>
 							</p>
 							{typeof exercise === 'object' &&
 								exercise.map((set, index) => (

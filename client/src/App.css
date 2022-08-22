@@ -83,6 +83,10 @@ img {
 	transition: 0.5s;
 }
 
+.journal {
+	height: 75vh;
+}
+
 /* Utilities */
 .container {
 	max-width: 1100px;
