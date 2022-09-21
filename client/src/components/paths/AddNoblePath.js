@@ -1,38 +1,60 @@
 import React, { useState } from 'react'
 
-import { addNoblePath, usePath } from '../../context/Paths/PathState'
-
-const initialPath = {
-	name: '',
-}
+import {
+	addNoblePath,
+	usePath,
+	deleteNoblePath,
+} from '../../context/Paths/PathState'
 
 const AddNoblePath = () => {
 	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
 	const [pathState, pathDispatch] = usePath()
-
-	const [path, setPath] = useState(initialPath)
-
-	const { name } = path
+	const { noblePathGym, noblePathFood, noblePathWake } = pathState
 
 	const [hideState, setHide] = useState(false)
 
-	const onSubmit = (e) => {
+	const addNobleGymPath = (e) => {
 		e.preventDefault()
-		addNoblePath(pathDispatch, path)
+		if (noblePathGym.length === 0) {
+			addNoblePath(pathDispatch, { name: 'Gym' })
+		} else {
+			if (
+				window.confirm(
+					'Are you sure? Cannot be undone and all you logs will be deleted!'
+				)
+			) {
+				deleteNoblePath(pathDispatch, noblePathGym[0]._id, 'Gym')
+			}
+		}
 	}
 
-	const onChange = (e) => {
-		if (name === '') {
-			setPath({
-				...path,
-				name: e.target.value,
-			})
+	const addNobleWakePath = (e) => {
+		e.preventDefault()
+		if (noblePathWake.length === 0) {
+			addNoblePath(pathDispatch, { name: 'Wake' })
 		} else {
-			console.log(`deleting noble path ${path.name}`)
-			setPath({
-				...path,
-				name: '',
-			})
+			if (
+				window.confirm(
+					'Are you sure? Cannot be undone and all you logs will be deleted!'
+				)
+			) {
+				deleteNoblePath(pathDispatch, noblePathWake[0]._id, 'Wake')
+			}
+		}
+	}
+
+	const addNobleFoodPath = (e) => {
+		e.preventDefault()
+		if (noblePathFood.length === 0) {
+			addNoblePath(pathDispatch, { name: 'Food' })
+		} else {
+			if (
+				window.confirm(
+					'Are you sure? Cannot be undone and all you logs will be deleted!'
+				)
+			) {
+				deleteNoblePath(pathDispatch, noblePathFood[0]._id, 'Food')
+			}
 		}
 	}
 
@@ -41,60 +63,48 @@ const AddNoblePath = () => {
 	}
 
 	let form = (
-		<form onSubmit={onSubmit}>
+		<form className={`addNoblePaths hoverable ${hideState ? null : 'show'}`}>
+			<h4>Noble Paths</h4>
 			<div className='row'>
-				<div className='col 12'>
-					<input
-						type='submit'
-						value='Add Path'
-						className='waves-effect waves-light btn white-text'
-					/>
-				</div>
-			</div>
-
-			<div className='row'>
-				<div className='col 12'>
-					<p>
-						<label>
-							<input
-								type='checkbox'
-								value='Gym'
-								className='filled-in'
-								onChange={onChange}
-							/>
-							<span>Activate Gym Path</span>
-						</label>
-					</p>
+				<div className='center-align'>
+					<label>
+						<input
+							type='checkbox'
+							value='Gym'
+							checked={noblePathGym.length === 0 ? false : true}
+							className='filled-in'
+							onChange={addNobleGymPath}
+						/>
+						<span>Activate Gym Path</span>
+					</label>
 				</div>
 			</div>
 			<div className='row'>
-				<div className='col 12'>
-					<p>
-						<label>
-							<input
-								type='checkbox'
-								value='Wake'
-								className='filled-in'
-								onChange={onChange}
-							/>
-							<span>Activate Wake Path</span>
-						</label>
-					</p>
+				<div className='center-align'>
+					<label>
+						<input
+							type='checkbox'
+							value='Wake'
+							checked={noblePathWake.length === 0 ? false : true}
+							className='filled-in'
+							onChange={addNobleWakePath}
+						/>
+						<span>Activate Wake Path</span>
+					</label>
 				</div>
 			</div>
 			<div className='row'>
-				<div className='col 12'>
-					<p>
-						<label>
-							<input
-								type='checkbox'
-								value='Food'
-								className='filled-in'
-								onChange={onChange}
-							/>
-							<span>Activate Food Path</span>
-						</label>
-					</p>
+				<div className='center-align'>
+					<label>
+						<input
+							type='checkbox'
+							value='Food'
+							checked={noblePathFood.length === 0 ? false : true}
+							className='filled-in'
+							onChange={addNobleFoodPath}
+						/>
+						<span>Activate Food Path</span>
+					</label>
 				</div>
 			</div>
 		</form>
@@ -108,7 +118,7 @@ const AddNoblePath = () => {
 			>
 				<i className='material-icons'>add</i>
 			</button>
-			{hideState && form}
+			{form}
 		</div>
 	)
 }

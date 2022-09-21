@@ -18,7 +18,6 @@ const DisplayPaths = () => {
 	}, [displayDispatch])
 
 	const displayPaths = paths.map((path) => <Path key={path._id} path={path} />)
-	console.log(paths)
 
 	const displayNoblePathWake = noblePathWake.length && (
 		<NoblePathWake noblePath={noblePathWake[0]} />
@@ -32,7 +31,6 @@ const DisplayPaths = () => {
 		<NoblePathFood noblePath={noblePathFood[0]} />
 	)
 
-	console.log(noblePathFood)
 	return (
 		<Fragment>
 			{noblePathGym.length > 0 && displayNoblePathGym}

@@ -1,11 +1,7 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 
-import {
-	usePath,
-	noblePathEntry,
-	deleteNoblePath,
-} from '../../context/Paths/PathState'
+import { usePath, noblePathEntry } from '../../context/Paths/PathState'
 
 import AlertContext from '../../context/alert/alertContext'
 
@@ -133,12 +129,6 @@ const NoblePathGym = ({ noblePath }) => {
 		})
 	}
 
-	const onDelete = () => {
-		if (window.confirm('are you sure? Cannot be undone')) {
-			deleteNoblePath(pathDispatch, _id, name)
-		}
-	}
-
 	let exerciseDataArray = []
 	entries.forEach((session) => {
 		console.log(session.exercises, 'forEach')
@@ -207,16 +197,7 @@ const NoblePathGym = ({ noblePath }) => {
 						)}
 					</div>
 					<div className='col s1'></div>
-					<div className='col s3'>
-						{readyForUpdateState && (
-							<button
-								className='waves-effect waves-teal red btn-flat black-text'
-								onClick={onDelete}
-							>
-								X
-							</button>
-						)}
-					</div>
+					<div className='col s3'></div>
 				</div>
 				<div className='row'>
 					{readyForUpdateState && (
