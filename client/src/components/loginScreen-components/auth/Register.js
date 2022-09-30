@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom'
 import AlertContext from '../../../context/alert/alertContext'
 
 import { useAuth, clearErrors, register } from '../../../context/auth/AuthState'
+import { usePath, addNoblePath } from '../../../context/Paths/PathState'
 
 const Register = (props) => {
 	const alertContext = useContext(AlertContext)
@@ -11,6 +12,8 @@ const Register = (props) => {
 
 	const [authState, authDispatch] = useAuth()
 	const { error, isAuthenticated } = authState
+
+	const [, pathDispatch] = usePath()
 
 	useEffect(() => {
 		if (error === 'Email already exists') {
@@ -48,6 +51,7 @@ const Register = (props) => {
 				email,
 				password,
 			})
+			addNoblePath(pathDispatch, { name: 'journal' })
 		}
 	}
 

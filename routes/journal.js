@@ -48,28 +48,6 @@ router.get('/', auth, async (req, res) => {
 	}
 })
 
-// @route       DELETE api/Journal/:id
-// @desc        Delete noble path Journal
-// @access      private
-router.delete('/:id', auth, async (req, res) => {
-	try {
-		let pathToDelete = await NoblePathJournal.findById(req.params.id)
-		if (!pathToDelete) return res.status(404).json({ msg: 'Path not found' })
-
-		// make sure Ronin can only edit their own items
-		if (pathToDelete.ronin.toString() !== req.ronin.id) {
-			return res.status(401).json({ msg: 'not authorised' })
-		}
-
-		await NoblePathJournal.findByIdAndRemove(req.params.id)
-
-		res.json({ msg: 'item deleted' })
-	} catch (err) {
-		console.error(error.message)
-		res.status(500).send('Server Error ')
-	}
-})
-
 // @route		POST a Journal time ENTRY api/noblePathJournal
 // @desc		add Journal time on noblePathJournal
 // @access		private
@@ -96,4 +74,25 @@ router.post('/:id', auth, async (req, res) => {
 	}
 })
 
+// @route       DELETE api/Journal/:id
+// @desc        Delete noble path Journal
+// @access      private
+router.delete('/:id', auth, async (req, res) => {
+	try {
+		let pathToDelete = await NoblePathJournal.findById(req.params.id)
+		if (!pathToDelete) return res.status(404).json({ msg: 'Path not found' })
+
+		// make sure Ronin can only edit their own items
+		if (pathToDelete.ronin.toString() !== req.ronin.id) {
+			return res.status(401).json({ msg: 'not authorised' })
+		}
+
+		await NoblePathJournal.findByIdAndRemove(req.params.id)
+
+		res.json({ msg: 'item deleted' })
+	} catch (err) {
+		console.error(error.message)
+		res.status(500).send('Server Error ')
+	}
+})
 module.exports = router

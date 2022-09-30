@@ -126,7 +126,7 @@ export const addNoblePath = async (dispatch, path) => {
 				console.log(resFood.data)
 				dispatch({ type: ADD_NOBLEPATH_FOOD, payload: resFood.data })
 				break
-
+			// Lower case j because the route it is being template literal'd into needs lower case j...
 			case 'journal':
 				let resJournal = await axios.post(`/api/${path.name}`, path)
 				console.log(resJournal.data)
@@ -256,11 +256,12 @@ export const deleteNoblePath = async (dispatch, _id, name) => {
 		switch (name) {
 			case 'Gym':
 				let res = await axios.delete(`/api/paths/noblePath${name}/${_id}`)
-
+				console.log(res)
 				dispatch({ type: DELETE_NOBLE_PATH_GYM, payload: _id })
 				break
 			case 'Wake':
 				let resWake = await axios.delete(`/api/paths/noblePath${name}/${_id}`)
+				console.log(resWake)
 				dispatch({ type: DELETE_NOBLE_PATH_WAKE, payload: _id })
 				break
 			case 'Food':

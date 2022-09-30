@@ -3,10 +3,8 @@ import PropTypes from 'prop-types'
 
 import {
 	usePath,
-	addNoblePath,
 	getNoblePaths,
 	noblePathEntry,
-	deleteNoblePath,
 } from '../../../context/Paths/PathState'
 
 import AlertContext from '../../../context/alert/alertContext'
@@ -16,7 +14,7 @@ import AlertContext from '../../../context/alert/alertContext'
 const NoblePathJournal = () => {
 	const alertContext = useContext(AlertContext)
 	const { setAlert } = alertContext
-	// need to keep in pathState otherwise the destructuring assignment doesn't pull out the dispatch correctly.
+
 	const [pathState, pathDispatch] = usePath()
 
 	const [entryState, setEntry] = useState({
@@ -34,7 +32,7 @@ const NoblePathJournal = () => {
 	}, [pathDispatch, name])
 
 	const { noblePathJournal } = pathState
-
+	const { _id } = noblePathJournal[0]
 	// console.log(_id, typeof _id, entries)
 
 	const [readyForUpdateState, setReadyForUpdateState] = useState(false)
@@ -42,12 +40,19 @@ const NoblePathJournal = () => {
 	const onUpdate = () => {
 		if (!readyForUpdateState) {
 			setReadyForUpdateState(true)
-			let journalObject
-			noblePathJournal
-				? (journalObject = noblePathJournal[0])
-				: setAlert('no journal activated', 'danger') &&
-				  setReadyForUpdateState(false)
-			const { _id } = journalObject
+			// let journalObject
+			// // the problem with this code is that the initial state is an empty array which will evaluate to bool true. But then accessing element 0 will throw undefined because nothing is in it yet!
+			// noblePathJournal.length > 0
+			// 	? (journalObject = noblePathJournal[0])
+			// 	: setAlert('no entries', 'danger') && setReadyForUpdateState(false)
+			// const { _id } = journalObject
+			// setEntry({ ...entryState, _id })
+
+			// we need to get the ID of the journal path...
+
+			// Once we have it we can set it to state ready for send off with our entry
+			console.log(noblePathJournal)
+
 			setEntry({ ...entryState, _id })
 		} else {
 			noblePathEntry(pathDispatch, entryState)
@@ -59,6 +64,7 @@ const NoblePathJournal = () => {
 				subject: '',
 				category: '',
 				body: '',
+				_id: '',
 			})
 		}
 	}
@@ -72,16 +78,12 @@ const NoblePathJournal = () => {
 		setAlert('Cleared', 'light')
 	}
 
-	const onDelete = () => {
-		let _id = noblePathJournal[0]._id ?? null
-		if (window.confirm('are you sure? Will lose all journal data')) {
-			deleteNoblePath(pathDispatch, _id, name)
-		}
-	}
-
-	const onActivate = () => {
-		addNoblePath(pathDispatch, entryState)
-	}
+	// const onDelete = () => {
+	// 	let _id = noblePathJournal[0]._id ?? null
+	// 	if (window.confirm('are you sure? Will lose all journal data')) {
+	// 		deleteNoblePath(pathDispatch, _id, name)
+	// 	}
+	// }
 
 	let displayEntryData
 	if (noblePathJournal[0]) {
@@ -104,19 +106,9 @@ const NoblePathJournal = () => {
 	}
 	let capital = name.charAt(0).toUpperCase() + name.slice(1, name.length)
 
-	let notActivated
-	noblePathJournal ? (notActivated = '') : (notActivated = 'notActivated')
 	return (
 		<div>
-			<button
-				className='waves-effect black btn-flat white-text'
-				onClick={onActivate}
-			>
-				<i className='material-icons'>check</i>
-			</button>
-			<div
-				className={`card medium white hoverable ${notActivated} text-center journal`}
-			>
+			<div className={`card medium white hoverable  text-center journal`}>
 				<div className='card-content black-text'>
 					<span className='card-title activator'>
 						{capital}
@@ -146,16 +138,7 @@ const NoblePathJournal = () => {
 							)}
 						</div>
 						<div className='col s1'></div>
-						<div className='col s3'>
-							{readyForUpdateState && (
-								<button
-									className='waves-effect waves-teal red btn-flat black-text'
-									onClick={onDelete}
-								>
-									X
-								</button>
-							)}
-						</div>
+						<div className='col s3'></div>
 					</div>
 
 					<div className='row'>

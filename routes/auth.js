@@ -18,8 +18,6 @@ router.get('/', auth, async (req, res) => {
 
 		res.json(ronin)
 	} catch (err) {
-		console.error(err.message, 'auth route')
-
 		res.status(500).send('server error')
 	}
 })
