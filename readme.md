@@ -1,4 +1,3 @@
-# Roast My Jutsu
 
 ## A MERN stack web app built with Three.JS!
 
